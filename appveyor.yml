@@ -1,0 +1,52 @@
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: +hgrWh6vwfA7rQRwEGfD0od5TBGW/jPEyGwy2jlBM4vZrtjNwnwaa9IzCrig5A+6
+configuration: Release
+platform: Any CPU
+install:
+  - choco install gitversion.portable -y
+  - choco install html-help-workshop -y
+before_build:
+  - nuget restore
+  - ps: gitversion /l console /output buildserver /updateassemblyinfo AssemblyInfoCommon.cs /b (get-item env:APPVEYOR_REPO_BRANCH).Value
+build:
+  project: Natsnudasoft.sln
+  verbosity: minimal
+  publish_nuget: true
+  publish_nuget_symbols: true
+  include_nuget_references: true
+after_build:
+  - call tools\prepare-artifacts.bat
+test:
+  assemblies: test\unit\NatsnudasoftTests\bin\Release\NatsnudasoftTests.dll
+after_test:
+  - call tools\run-test-report.bat buildserver
+cache:
+  - packages -> **\packages.config
+  - C:\ProgramData\chocolatey\bin -> appveyor.yml
+  - C:\ProgramData\chocolatey\lib -> appveyor.yml
+artifacts:
+  - path: NatsnudaLibrary_Release_Any_CPU.zip
+    name: NatsnudaLibrary_Release_Any_CPU
+deploy:
+  - provider: GitHub
+    tag: $(APPVEYOR_REPO_TAG_NAME)
+    release: 'NatsnudaLibrary $(APPVEYOR_REPO_TAG_NAME)'
+    description: ''
+    auth_token:
+      secure: Btb4eq03u8e4+k4WUyv4mWf0kfmzuxSCRo6u1nfOCtxlr4hrdpB5af5tVpt5q+1q
+    artifact: NatsnudaLibrary_Release_Any_CPU
+    draft: false
+    prerelease: false
+    on:
+      branch: master
+      appveyor_repo_tag: true
+  - provider: NuGet
+    server: https://www.myget.org/F/natsnudalibrary/api/v2/package
+    api_key:
+      secure: bagqpjy5GqBb4b3uF2sJ3l13IkKA3jiMvcd1TE6k//2Mp7TyWwuNO09I8oF5Amko
+    skip_symbols: false
+    symbol_server: https://www.myget.org/F/natsnudalibrary/symbols/api/v2/package
+    artifact: /.*\.nupkg/
+    on:
+      branch: master

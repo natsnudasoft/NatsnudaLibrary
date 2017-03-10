@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>NatsnudaLibrary</id>
+    <version>$version$</version>
+    <title>Natsnudasoft Library</title>
+    <authors>Adrian John Dunstan</authors>
+    <owners>Adrian John Dunstan</owners>
+    <description>A collection of my personal extensions/helper libraries.</description>
+    <copyright>$copyright$</copyright>
+    <tags>natsnudasoft</tags>
+    <licenseUrl>https://github.com/natsnudasoft/NatsnudaLibrary/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/natsnudasoft/NatsnudaLibrary</projectUrl>
+  </metadata>
+</package>
