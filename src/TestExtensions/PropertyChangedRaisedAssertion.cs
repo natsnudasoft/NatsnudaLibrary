@@ -31,6 +31,8 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
     /// <seealso cref="IdiomaticAssertion" />
     public sealed class PropertyChangedRaisedAssertion : IdiomaticAssertion
     {
+        private readonly IEqualityComparer<object> propertyValueComparer;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyChangedRaisedAssertion"/> class.
         /// </summary>
@@ -39,10 +41,28 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         /// <exception cref="ArgumentNullException"><paramref name="specimenBuilder"/> is
         /// <see langword="null"/>.</exception>
         public PropertyChangedRaisedAssertion(ISpecimenBuilder specimenBuilder)
+            : this(specimenBuilder, EqualityComparer<object>.Default)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyChangedRaisedAssertion"/> class.
+        /// </summary>
+        /// <param name="specimenBuilder">The anonymous object creation service to use to create new
+        /// specimens.</param>
+        /// <param name="propertyValueComparer">The comparer to use to ensure that a unique value
+        /// is assigned to the property when verifying PropertyChanged is raised.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="specimenBuilder"/> is
+        /// <see langword="null"/>.</exception>
+        public PropertyChangedRaisedAssertion(
+            ISpecimenBuilder specimenBuilder,
+            IEqualityComparer<object> propertyValueComparer)
         {
             ParameterValidation.IsNotNull(specimenBuilder, nameof(specimenBuilder));
+            ParameterValidation.IsNotNull(propertyValueComparer, nameof(propertyValueComparer));
 
             this.SpecimenBuilder = specimenBuilder;
+            this.propertyValueComparer = propertyValueComparer;
         }
 
         /// <summary>
@@ -55,8 +75,8 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         /// </summary>
         /// <param name="propertyInfo">The property.</param>
         /// <remarks>
-        /// This method does nothing if the property does not have a public set method, or if no
-        /// public PropertyChanged event with the correct signature was found.
+        /// This method does nothing if the property does not have a public set method, or if
+        /// <see cref="INotifyPropertyChanged"/> was not implemented on the properties owner.
         /// </remarks>
         /// <exception cref="ArgumentNullException"><paramref name="propertyInfo"/> is
         /// <see langword="null"/>.</exception>
@@ -66,12 +86,11 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         {
             ParameterValidation.IsNotNull(propertyInfo, nameof(propertyInfo));
 
-            var propertyChangedEventInfo = propertyInfo.ReflectedType.GetEvent("PropertyChanged");
+            var propertyChangedEventInfo = propertyInfo.ReflectedType
+                .GetInterface(nameof(INotifyPropertyChanged))
+                ?.GetEvent(nameof(INotifyPropertyChanged.PropertyChanged));
 
-            if (propertyChangedEventInfo != null && propertyInfo.GetSetMethod() != null &&
-                propertyChangedEventInfo.EventHandlerType == typeof(PropertyChangedEventHandler) &&
-                propertyChangedEventInfo.GetAddMethod() != null &&
-                propertyChangedEventInfo.GetRemoveMethod() != null)
+            if (propertyChangedEventInfo != null && propertyInfo.GetSetMethod() != null)
             {
                 var receivedEvents = new List<string>();
                 Action<object, PropertyChangedEventArgs> handler = (sender, e) =>
@@ -85,12 +104,20 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
                 var context = new SpecimenContext(this.SpecimenBuilder);
                 var specimen = context.Resolve(propertyInfo.ReflectedType);
                 var initialPropertyValue = propertyInfo.GetValue(specimen);
+                var retryCount = 0;
+                const int MaxRetryCount = 100;
                 object newPropertyValue;
                 do
                 {
+                    if (++retryCount > MaxRetryCount)
+                    {
+                        throw new PropertyChangedRaisedException(
+                            "A value unique to the initial property value could not be created.");
+                    }
+
                     newPropertyValue = context.Resolve(propertyInfo.PropertyType);
                 }
-                while (newPropertyValue == initialPropertyValue);
+                while (this.propertyValueComparer.Equals(newPropertyValue, initialPropertyValue));
 
                 try
                 {

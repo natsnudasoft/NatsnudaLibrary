@@ -29,6 +29,7 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
     public sealed class ParameterNullReferenceBehaviorExpectation : IBehaviorExpectation
     {
         private readonly ISpecimenBuilder specimenBuilder;
+        private readonly IGuardClauseExtensions guardClauseExtensions;
 
         /// <summary>
         /// Initializes a new instance of the
@@ -39,10 +40,29 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         /// <exception cref="ArgumentNullException"><paramref name="specimenBuilder"/> is
         /// <see langword="null"/>.</exception>
         public ParameterNullReferenceBehaviorExpectation(ISpecimenBuilder specimenBuilder)
+            : this(specimenBuilder, new GuardClauseExtensions())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="ParameterNullReferenceBehaviorExpectation"/> class.
+        /// </summary>
+        /// <param name="specimenBuilder">The anonymous object creation service used to workaround
+        /// a problem with guard clause assertions.</param>
+        /// <param name="guardClauseExtensions">An instance of helper extensions for the
+        /// <see cref="GuardClauseAssertion"/> class.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="specimenBuilder"/>, or
+        /// <paramref name="guardClauseExtensions"/> is <see langword="null"/>.</exception>
+        public ParameterNullReferenceBehaviorExpectation(
+            ISpecimenBuilder specimenBuilder,
+            IGuardClauseExtensions guardClauseExtensions)
         {
             ParameterValidation.IsNotNull(specimenBuilder, nameof(specimenBuilder));
+            ParameterValidation.IsNotNull(guardClauseExtensions, nameof(guardClauseExtensions));
 
             this.specimenBuilder = specimenBuilder;
+            this.guardClauseExtensions = guardClauseExtensions;
         }
 
         /// <summary>
@@ -58,7 +78,7 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
             if (command.RequestedType.IsClass || command.RequestedType.IsInterface)
             {
                 var newCommand =
-                    GuardClauseExtensions.CreateExtendedCommand(this.specimenBuilder, command);
+                    this.guardClauseExtensions.CreateExtendedCommand(this.specimenBuilder, command);
                 var expectedExceptionThrown = false;
                 try
                 {

@@ -25,9 +25,10 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
     using Ploeh.AutoFixture.Kernel;
 
     /// <summary>
-    /// Provides methods to extend the <see cref="GuardClauseAssertion"/> class.
+    /// Provides methods to extend the functionality of the
+    /// <see cref="GuardClauseAssertion"/> class.
     /// </summary>
-    internal static class GuardClauseExtensions
+    internal class GuardClauseExtensions : IGuardClauseExtensions
     {
         private static readonly Type TaskReturnType = typeof(GuardClauseAssertion).Assembly.GetType(
             "Ploeh.AutoFixture.Idioms.GuardClauseAssertion+TaskReturnMethodInvokeCommand");
@@ -45,14 +46,15 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         /// features.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="specimenBuilder"/>, or
         /// <paramref name="command"/> is <see langword="null"/>.</exception>
-        public static IGuardClauseCommand CreateExtendedCommand(
+        public IGuardClauseCommand CreateExtendedCommand(
             ISpecimenBuilder specimenBuilder,
             IGuardClauseCommand command)
         {
             ParameterValidation.IsNotNull(specimenBuilder, nameof(specimenBuilder));
             ParameterValidation.IsNotNull(command, nameof(command));
 
-            var methodInvokeCommand = GetMethodInvokeCommand(command);
+            MethodInvokeCommand methodInvokeCommand;
+            this.TryGetMethodInvokeCommand(command, out methodInvokeCommand);
             var expansion = methodInvokeCommand?.Expansion as IndexedReplacement<object>;
             IGuardClauseCommand commandToExecute;
             if (methodInvokeCommand != null && expansion != null)
@@ -95,13 +97,19 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         /// </summary>
         /// <param name="command">The <see cref="IGuardClauseCommand"/> to attempt to extract an
         /// instance of <see cref="MethodInvokeCommand"/> from.</param>
-        /// <returns>An instance of <see cref="MethodInvokeCommand"/> if one was found; otherwise
-        /// <see langword="null"/>.</returns>
-        public static MethodInvokeCommand GetMethodInvokeCommand(IGuardClauseCommand command)
+        /// <param name="methodInvokeCommand">Will contain an instance of
+        /// <see cref="MethodInvokeCommand"/> if one is found; otherwise <see langword="null"/>.
+        /// </param>
+        /// <returns><see langword="true"/> if an instance of <see cref="MethodInvokeCommand"/> was
+        /// found on the specified <see cref="IGuardClauseCommand"/>; otherwise
+        /// <see langword="false"/>.</returns>
+        public bool TryGetMethodInvokeCommand(
+            IGuardClauseCommand command,
+            out MethodInvokeCommand methodInvokeCommand)
         {
             ParameterValidation.IsNotNull(command, nameof(command));
 
-            var methodInvokeCommand =
+            methodInvokeCommand =
                 (command as ReflectionExceptionUnwrappingCommand)?.Command as MethodInvokeCommand;
 
             if (methodInvokeCommand == null && command.GetType() == TaskReturnType)
@@ -112,7 +120,7 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
                     as ReflectionExceptionUnwrappingCommand)?.Command as MethodInvokeCommand;
             }
 
-            return methodInvokeCommand;
+            return methodInvokeCommand != null;
         }
 
         private static IndexedReplacement<object> RecreateExpansion(

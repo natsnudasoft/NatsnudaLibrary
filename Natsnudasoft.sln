@@ -31,6 +31,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Versioning", "Versioning", 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{AB7F6299-1645-4FE4-9AB4-6DA3101451CE}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "NatsnudasoftDocs", "docs\Natsnudasoft\NatsnudasoftDocs.shfbproj", "{82C2FB67-A2A2-4D68-87B7-EEFB7C31B212}"
 	ProjectSection(ProjectDependencies) = postProject
