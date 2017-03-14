@@ -100,10 +100,19 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         {
             ParameterValidation.IsNotNull(fixture, nameof(fixture));
 
-            fixture.Customizations.Add(new ParameterSpecimenBuilder(
-                this.DeclaringType,
-                this.ParameterName,
-                this.SpecimenValue));
+            if (this.SpecimenValue == null)
+            {
+                fixture.Customizations.Add(new ParameterSpecimenBuilder(
+                    this.DeclaringType,
+                    this.ParameterName));
+            }
+            else
+            {
+                fixture.Customizations.Add(new ParameterSpecimenBuilder(
+                    this.DeclaringType,
+                    this.ParameterName,
+                    this.SpecimenValue));
+            }
         }
     }
 }

@@ -105,6 +105,7 @@
     <Compile Include="DoesNotThrowAssertion.cs" />
     <Compile Include="ExceptionBehaviorExpectation.cs" />
     <Compile Include="GuardClauseExtensions.cs" />
+    <Compile Include="IGuardClauseExtensions.cs" />
     <Compile Include="InlineAutoMoqDataAttribute.cs" />
     <Compile Include="ParameterAttribute.cs" />
     <Compile Include="ParameterCustomization.cs" />

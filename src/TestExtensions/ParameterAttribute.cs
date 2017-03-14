@@ -85,10 +85,22 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         {
             ParameterValidation.IsNotNull(parameter, nameof(parameter));
 
-            return new ParameterCustomization(
-                parameter.ParameterType,
-                this.ParameterName,
-                this.SpecimenValue);
+            ICustomization customization;
+            if (this.SpecimenValue == null)
+            {
+                customization = new ParameterCustomization(
+                    parameter.ParameterType,
+                    this.ParameterName);
+            }
+            else
+            {
+                customization = new ParameterCustomization(
+                    parameter.ParameterType,
+                    this.ParameterName,
+                    this.SpecimenValue);
+            }
+
+            return customization;
         }
     }
 }

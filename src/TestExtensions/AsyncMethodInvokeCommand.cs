@@ -17,7 +17,6 @@
 namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
 {
     using System;
-    using System.Linq;
     using System.Reflection;
     using System.Runtime.ExceptionServices;
     using System.Threading;
@@ -55,27 +54,7 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         /// <exception cref="GuardClauseException">Async method did not return a Task.</exception>
         void IGuardClauseCommand.Execute(object value)
         {
-            var instanceMethod = this.Method as InstanceMethod;
-            var staticMethod = this.Method as StaticMethod;
-            Task returnedTask;
-            if (instanceMethod != null)
-            {
-                returnedTask = instanceMethod.Method.Invoke(
-                    instanceMethod.Owner,
-                    this.Expansion.Expand(value).ToArray()) as Task;
-            }
-            else if (staticMethod != null)
-            {
-                returnedTask = staticMethod.Method.Invoke(
-                    null,
-                    this.Expansion.Expand(value).ToArray()) as Task;
-            }
-            else
-            {
-                this.Execute(value);
-                returnedTask = Task.CompletedTask;
-            }
-
+            var returnedTask = this.Method.Invoke(this.Expansion.Expand(value)) as Task;
             if (returnedTask == null)
             {
                 throw new GuardClauseException("Async method did not return a Task.");

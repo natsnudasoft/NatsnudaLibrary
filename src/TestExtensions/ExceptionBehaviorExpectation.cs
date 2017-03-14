@@ -35,6 +35,7 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         where T : Exception
     {
         private readonly ISpecimenBuilder specimenBuilder;
+        private readonly IGuardClauseExtensions guardClauseExtensions;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionBehaviorExpectation{T}"/> class.
@@ -47,14 +48,43 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         /// <exception cref="ArgumentNullException"><paramref name="specimenBuilder"/>,
         /// <paramref name="parameterName"/>, or <paramref name="values"/> is
         /// <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="parameterName"/> is empty.
+        /// </exception>
         /// <exception cref="ArgumentException"><paramref name="values"/> is empty.</exception>
         public ExceptionBehaviorExpectation(
             ISpecimenBuilder specimenBuilder,
             string parameterName,
             params object[] values)
+            : this(specimenBuilder, new GuardClauseExtensions(), parameterName, values)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExceptionBehaviorExpectation{T}"/> class.
+        /// </summary>
+        /// <param name="specimenBuilder">The anonymous object creation service used to workaround
+        /// a problem with guard clause assertions.</param>
+        /// <param name="guardClauseExtensions">An instance of helper extensions for the
+        /// <see cref="GuardClauseAssertion"/> class.</param>
+        /// <param name="parameterName">The name of the parameter to apply a known value to.</param>
+        /// <param name="values">The values to apply to the parameter to assert the guard clause.
+        /// </param>
+        /// <exception cref="ArgumentNullException"><paramref name="specimenBuilder"/>,
+        /// <paramref name="guardClauseExtensions"/>, <paramref name="parameterName"/>, or
+        /// <paramref name="values"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="parameterName"/> is empty.
+        /// </exception>
+        /// <exception cref="ArgumentException"><paramref name="values"/> is empty.</exception>
+        public ExceptionBehaviorExpectation(
+            ISpecimenBuilder specimenBuilder,
+            IGuardClauseExtensions guardClauseExtensions,
+            string parameterName,
+            params object[] values)
         {
             ParameterValidation.IsNotNull(specimenBuilder, nameof(specimenBuilder));
+            ParameterValidation.IsNotNull(guardClauseExtensions, nameof(guardClauseExtensions));
             ParameterValidation.IsNotNull(parameterName, nameof(parameterName));
+            ParameterValidation.IsNotEmpty(parameterName, nameof(parameterName));
             ParameterValidation.IsNotNull(values, nameof(values));
             if (values.Length == 0)
             {
@@ -64,6 +94,7 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
             this.specimenBuilder = specimenBuilder;
             this.ParameterName = parameterName;
             this.Values = values;
+            this.guardClauseExtensions = guardClauseExtensions;
         }
 
         /// <summary>
@@ -77,22 +108,23 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         public IEnumerable<object> Values { get; }
 
         /// <summary>
-        /// Verifies that the behavior of the specified command matches the defined expectations.
+        /// Verifies that the behaviour of the specified command matches the defined expectations.
         /// </summary>
-        /// <param name="command">The command whose behavior must be examined.</param>
+        /// <param name="command">The command whose behaviour must be examined.</param>
         /// <exception cref="ArgumentNullException"><paramref name="command"/> is
         /// <see langword="null"/>.</exception>
         public void Verify(IGuardClauseCommand command)
         {
             ParameterValidation.IsNotNull(command, nameof(command));
 
-            var methodInvokeCommand = GuardClauseExtensions.GetMethodInvokeCommand(command);
-
-            if (methodInvokeCommand != null &&
+            MethodInvokeCommand methodInvokeCommand;
+            if (this.guardClauseExtensions.TryGetMethodInvokeCommand(
+                    command,
+                    out methodInvokeCommand) &&
                 methodInvokeCommand.ParameterInfo.Name == this.ParameterName)
             {
                 var newCommand =
-                    GuardClauseExtensions.CreateExtendedCommand(this.specimenBuilder, command);
+                    this.guardClauseExtensions.CreateExtendedCommand(this.specimenBuilder, command);
                 foreach (var value in this.Values)
                 {
                     var expectedExceptionThrown = false;
