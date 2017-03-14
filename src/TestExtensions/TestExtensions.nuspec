@@ -6,7 +6,7 @@
     <title>Natsnudasoft Test Extensions</title>
     <authors>Adrian John Dunstan</authors>
     <owners>Adrian John Dunstan</owners>
-    <description>A collection of extensions for unit testing projects.</description>
+    <description>A collection of extensions for unit testing projects using xunit and AutoFixture.</description>
     <copyright>$copyright$</copyright>
     <tags>autofixture xunit auto fixture unit testing natsnudasoft</tags>
     <licenseUrl>https://github.com/natsnudasoft/NatsnudaLibrary/blob/master/LICENSE</licenseUrl>
