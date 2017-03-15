@@ -40,11 +40,10 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup>
+  <PropertyGroup Condition=" '$(APPVEYOR)' == 'True' And '$(APPVEYOR_PULL_REQUEST_NUMBER)' == '' ">
     <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>TestExtensions.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\Natsnudasoft.snk</AssemblyOriginatorKeyFile>
+    <DefineConstants>$(DefineConstants);APPVEYOR</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -100,6 +99,9 @@
     <Compile Include="..\..\AssemblyInfoCommon.cs">
       <Link>Properties\AssemblyInfoCommon.cs</Link>
     </Compile>
+    <Compile Include="..\..\CommonSuppressions.cs">
+      <Link>CommonSuppressions.cs</Link>
+    </Compile>
     <Compile Include="AsyncMethodInvokeCommand.cs" />
     <Compile Include="AutoMoqDataAttribute.cs" />
     <Compile Include="DoesNotThrowAssertion.cs" />
@@ -124,7 +126,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="TestExtensions.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NatsnudaLibrary\NatsnudaLibrary.csproj">
