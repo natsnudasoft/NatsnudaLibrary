@@ -35,6 +35,23 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             "Ploeh.AutoFixture.Idioms.GuardClauseAssertion+TaskReturnMethodInvokeCommand");
 
         [Fact]
+        public void ConstructorDoesNotThrow()
+        {
+            var ex = Record.Exception(() => new GuardClauseExtensions());
+
+            Assert.Null(ex);
+        }
+
+        [Fact]
+        public void Constructor2DoesNotThrow()
+        {
+            var fixture = new Fixture();
+            var ex = Record.Exception(() => new GuardClauseExtensions(fixture.Create<int>()));
+
+            Assert.Null(ex);
+        }
+
+        [Fact]
         public void CreateExtendedCommandHasCorrectGuardClauses()
         {
             var fixture = new Fixture();

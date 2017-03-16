@@ -23,14 +23,33 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using System.Threading.Tasks;
     using Moq;
     using Natsnudasoft.NatsnudaLibrary.TestExtensions;
+    using Ploeh.AutoFixture;
     using Ploeh.AutoFixture.Idioms;
     using Ploeh.AutoFixture.Kernel;
     using Xunit;
 
     public sealed class AsyncMethodInvokeCommandTests
     {
+        private static readonly Type SutType = typeof(AsyncMethodInvokeCommand);
+
         private Mock<IMethod> methodMock;
         private Mock<IExpansion<object>> expansionMock;
+
+        [Fact]
+        public void ConstructorSetsCorrectInitializedMembers()
+        {
+            var fixture = new Fixture();
+            var parameterInfo = typeof(AsyncMethodInvokeCommandTests)
+                .GetMethod(nameof(StubMethodAsync), BindingFlags.Static | BindingFlags.NonPublic)
+                .GetParameters().First();
+            fixture.Inject(new Mock<IMethod>().Object);
+            fixture.Inject(new Mock<IExpansion<object>>().Object);
+            fixture.Inject(parameterInfo);
+            var assertion = new ConstructorInitializedMemberAssertion(fixture);
+
+            assertion.Verify(
+                SutType.GetProperty(nameof(AsyncMethodInvokeCommand.Timeout)));
+        }
 
         [Fact]
         public void ConstructorDoesNotThrow()
@@ -42,6 +61,22 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 new Mock<IMethod>().Object,
                 new Mock<IExpansion<object>>().Object,
                 parameterInfo));
+
+            Assert.Null(ex);
+        }
+
+        [Fact]
+        public void Constructor2DoesNotThrow()
+        {
+            var fixture = new Fixture();
+            var parameterInfo = typeof(AsyncMethodInvokeCommandTests)
+                .GetMethod(nameof(StubMethodAsync), BindingFlags.Static | BindingFlags.NonPublic)
+                .GetParameters().First();
+            var ex = Record.Exception(() => new AsyncMethodInvokeCommand(
+                new Mock<IMethod>().Object,
+                new Mock<IExpansion<object>>().Object,
+                parameterInfo,
+                fixture.Create<int>()));
 
             Assert.Null(ex);
         }
@@ -61,7 +96,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void ExecuteAsIGuardClauseCommandWithTaskWithExceptionThrows()
         {
-            var sut = this.CreateSut(StubMethodAsync(true));
+            var sut = this.CreateSut(StubMethodAsync(true, false));
 
 #pragma warning disable IDE0004 // Cast is redundant
             var ex = Record.Exception(() => ((IGuardClauseCommand)sut).Execute(null));
@@ -71,10 +106,22 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         }
 
         [Fact]
+        public void ExecuteAsIGuardClauseCommandWithTimeoutCausingTaskThrows()
+        {
+            var sut = this.CreateSut(StubMethodAsync(false, true));
+
+#pragma warning disable IDE0004 // Cast is redundant
+            var ex = Record.Exception(() => ((IGuardClauseCommand)sut).Execute(null));
+#pragma warning restore IDE0004 // Cast is redundant
+
+            Assert.IsType<GuardClauseException>(ex);
+        }
+
+        [Fact]
         public void ExecuteAsIGuardClauseCommandWithTaskInvokesAndAwaitsMethod()
         {
             const int ExpansionValue = 16;
-            var task = StubMethodAsync(false);
+            var task = StubMethodAsync(false, false);
             var sut = this.CreateSut(task);
 
 #pragma warning disable IDE0004 // Cast is redundant
@@ -85,7 +132,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             Assert.Equal(TaskStatus.RanToCompletion, task.Status);
         }
 
-        private static async Task StubMethodAsync(bool throwException)
+        private static async Task StubMethodAsync(bool throwException, bool longRunning)
         {
             if (throwException)
             {
@@ -93,6 +140,12 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             }
 
             await Task.Yield();
+
+            if (longRunning)
+            {
+                const int DelayTime = 20000;
+                await Task.Delay(DelayTime).ConfigureAwait(false);
+            }
         }
 
         private AsyncMethodInvokeCommand CreateSut(Task methodReturnedTask)

@@ -43,9 +43,40 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
             IMethod method,
             IExpansion<object> expansion,
             ParameterInfo parameterInfo)
-            : base(method, expansion, parameterInfo)
+            : this(method, expansion, parameterInfo, DefaultTimeout)
         {
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AsyncMethodInvokeCommand"/> class.
+        /// </summary>
+        /// <param name="method">The method to invoke.</param>
+        /// <param name="expansion">An expansion which is used to transform the single value in the
+        /// Execute method into an appropriate number of input arguments for the method.</param>
+        /// <param name="parameterInfo">The parameter that is being sent to this method.</param>
+        /// <param name="timeout">The timeout (in milliseconds) to wait for an async task to exit.
+        /// </param>
+        public AsyncMethodInvokeCommand(
+            IMethod method,
+            IExpansion<object> expansion,
+            ParameterInfo parameterInfo,
+            int timeout)
+            : base(method, expansion, parameterInfo)
+        {
+            this.Timeout = timeout;
+        }
+
+#pragma warning disable MEN010 // Avoid magic numbers
+        /// <summary>
+        /// Gets the default timeout (in milliseconds) to wait for an async task to exit.
+        /// </summary>
+        public static int DefaultTimeout => 5000;
+#pragma warning restore MEN010 // Avoid magic numbers
+
+        /// <summary>
+        /// Gets the timeout (in milliseconds) to wait for an async task to exit.
+        /// </summary>
+        public int Timeout { get; }
 
         /// <summary>
         /// Invokes the method with the specified value.
@@ -63,7 +94,10 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
             ExceptionDispatchInfo exInfo = null;
             var thread = new Thread(() => WaitTaskCaptureException(returnedTask, out exInfo));
             thread.Start();
-            thread.Join();
+            if (!thread.Join(this.Timeout))
+            {
+                throw new GuardClauseException("Async method timed out.");
+            }
 
             if (exInfo != null)
             {
