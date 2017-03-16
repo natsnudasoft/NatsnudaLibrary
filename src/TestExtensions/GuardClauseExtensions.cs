@@ -33,6 +33,26 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         private static readonly Type TaskReturnType = typeof(GuardClauseAssertion).Assembly.GetType(
             "Ploeh.AutoFixture.Idioms.GuardClauseAssertion+TaskReturnMethodInvokeCommand");
 
+        private readonly int asyncTaskTimeout;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GuardClauseExtensions"/> class.
+        /// </summary>
+        public GuardClauseExtensions()
+            : this(AsyncMethodInvokeCommand.DefaultTimeout)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GuardClauseExtensions"/> class.
+        /// </summary>
+        /// <param name="asyncTaskTimeout">The timeout (in milliseconds) to wait for an async task
+        /// in an <see cref="AsyncMethodInvokeCommand"/> to exit.</param>
+        public GuardClauseExtensions(int asyncTaskTimeout)
+        {
+            this.asyncTaskTimeout = asyncTaskTimeout;
+        }
+
         /// <summary>
         /// Creates a new <see cref="IGuardClauseCommand"/> from the specified
         /// <see cref="IGuardClauseCommand"/> that replaces the expansion with one that uses
@@ -72,7 +92,8 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
                         new ReflectionExceptionUnwrappingCommand(new AsyncMethodInvokeCommand(
                             methodInvokeCommand.Method,
                             recreatedExpansion,
-                            methodInvokeCommand.ParameterInfo));
+                            methodInvokeCommand.ParameterInfo,
+                            this.asyncTaskTimeout));
                 }
                 else
                 {

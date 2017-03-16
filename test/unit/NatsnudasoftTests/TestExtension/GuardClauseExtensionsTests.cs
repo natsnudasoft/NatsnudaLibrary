@@ -35,6 +35,23 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             "Ploeh.AutoFixture.Idioms.GuardClauseAssertion+TaskReturnMethodInvokeCommand");
 
         [Fact]
+        public void ConstructorDoesNotThrow()
+        {
+            var ex = Record.Exception(() => new GuardClauseExtensions());
+
+            Assert.Null(ex);
+        }
+
+        [Fact]
+        public void Constructor2DoesNotThrow()
+        {
+            var fixture = new Fixture();
+            var ex = Record.Exception(() => new GuardClauseExtensions(fixture.Create<int>()));
+
+            Assert.Null(ex);
+        }
+
+        [Fact]
         public void CreateExtendedCommandHasCorrectGuardClauses()
         {
             var fixture = new Fixture();
@@ -176,7 +193,9 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         {
             var sut = new GuardClauseExtensions();
             var testHelperMethod = typeof(GuardClauseExtensionsTests)
-                .GetMethod(nameof(TestHelperMethod), BindingFlags.Static | BindingFlags.NonPublic);
+                .GetMethod(
+                    nameof(StaticCommandHelperMethod),
+                    BindingFlags.Static | BindingFlags.NonPublic);
             var innerCommand = new ReflectionExceptionUnwrappingCommand(new MethodInvokeCommand(
                 new Mock<IMethod>().Object,
                 new Mock<IExpansion<object>>().Object,
@@ -196,20 +215,18 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             IExpansion<object> expansion)
         {
             var testHelperMethod = typeof(GuardClauseExtensionsTests)
-                .GetMethod(nameof(TestHelperMethod), BindingFlags.Static | BindingFlags.NonPublic);
+                .GetMethod(
+                    nameof(StaticCommandHelperMethod),
+                    BindingFlags.Static | BindingFlags.NonPublic);
             return new ReflectionExceptionUnwrappingCommand(new MethodInvokeCommand(
                 method,
                 expansion,
                 testHelperMethod.GetParameters().First()));
         }
 
-        private static string TestHelperMethod(string stringParameter)
+        private static string StaticCommandHelperMethod(string stringParameter)
         {
             return stringParameter;
-        }
-
-        private static void StaticCommandHelperMethod()
-        {
         }
 
         private static async Task StaticCommandHelperMethodAsync()
