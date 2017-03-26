@@ -106,11 +106,19 @@
     <Compile Include="..\..\..\CommonSuppressions.cs">
       <Link>CommonSuppressions.cs</Link>
     </Compile>
+    <Compile Include="Helper\EqualsOverrideAssertionVerifyHelper.cs" />
     <Compile Include="NatsnudaLibrary\ParameterValidationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestExtension\AsyncMethodInvokeCommandTests.cs" />
     <Compile Include="TestExtension\AutoMoqDataAttributeTests.cs" />
     <Compile Include="TestExtension\DoesNotThrowAssertionTests.cs" />
+    <Compile Include="TestExtension\EqualsOverrideAssertionTests.cs" />
+    <Compile Include="TestExtension\EqualsOverrideNewObjectAssertionTests.cs" />
+    <Compile Include="TestExtension\EqualsOverrideNullAssertionTests.cs" />
+    <Compile Include="TestExtension\EqualsOverrideOtherSuccessiveAssertionTests.cs" />
+    <Compile Include="TestExtension\EqualsOverrideSelfAssertionTests.cs" />
+    <Compile Include="TestExtension\EqualsOverrideTheoriesSuccessiveAssertionTests.cs" />
+    <Compile Include="TestExtension\EqualsOverrideTheoryTests.cs" />
     <Compile Include="TestExtension\ExceptionBehaviorExpectationTests.cs" />
     <Compile Include="TestExtension\GuardClauseExtensionsTests.cs" />
     <Compile Include="TestExtension\InlineAutoMoqDataAttributeTests.cs" />
