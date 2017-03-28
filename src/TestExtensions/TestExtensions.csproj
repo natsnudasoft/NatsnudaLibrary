@@ -105,6 +105,13 @@
     <Compile Include="AsyncMethodInvokeCommand.cs" />
     <Compile Include="AutoMoqDataAttribute.cs" />
     <Compile Include="DoesNotThrowAssertion.cs" />
+    <Compile Include="EqualsOverrideAssertion.cs" />
+    <Compile Include="EqualsOverrideNewObjectAssertion.cs" />
+    <Compile Include="EqualsOverrideNullAssertion.cs" />
+    <Compile Include="EqualsOverrideOtherSuccessiveAssertion.cs" />
+    <Compile Include="EqualsOverrideSelfAssertion.cs" />
+    <Compile Include="EqualsOverrideTheoriesSuccessiveAssertion.cs" />
+    <Compile Include="EqualsOverrideTheory.cs" />
     <Compile Include="ExceptionBehaviorExpectation.cs" />
     <Compile Include="GuardClauseExtensions.cs" />
     <Compile Include="IGuardClauseExtensions.cs" />
