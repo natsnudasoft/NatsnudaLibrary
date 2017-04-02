@@ -20,15 +20,15 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using System.Linq;
     using System.Reflection;
     using Moq;
-    using Natsnudasoft.NatsnudaLibrary.TestExtensions;
     using Ploeh.AutoFixture;
     using Ploeh.AutoFixture.Idioms;
     using Ploeh.AutoFixture.Kernel;
     using Xunit;
+    using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.ParameterSpecimenBuilder;
 
     public sealed class ParameterSpecimenBuilderTests
     {
-        private static readonly Type SutType = typeof(ParameterSpecimenBuilder);
+        private static readonly Type SutType = typeof(SutAlias);
 
         [Fact]
         public void ConstructorHasCorrectGuardClauses()
@@ -42,7 +42,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void ConstructorWithEmptyParameterNameThrows()
         {
-            var ex = Record.Exception(() => new ParameterSpecimenBuilder(
+            var ex = Record.Exception(() => new SutAlias(
                 typeof(ParameterCustomizationTests),
                 string.Empty));
 
@@ -54,7 +54,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         {
             var fixture = new Fixture();
 
-            var ex = Record.Exception(() => new ParameterSpecimenBuilder(
+            var ex = Record.Exception(() => new SutAlias(
                 typeof(ParameterCustomizationTests),
                 string.Empty,
                 fixture.Create<int>()));
@@ -69,17 +69,17 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var assertion = new ConstructorInitializedMemberAssertion(fixture);
 
             assertion.Verify(
-                SutType.GetProperty(nameof(ParameterSpecimenBuilder.DeclaringType)),
-                SutType.GetProperty(nameof(ParameterSpecimenBuilder.ParameterName)),
-                SutType.GetProperty(nameof(ParameterSpecimenBuilder.SpecimenValue)));
+                SutType.GetProperty(nameof(SutAlias.DeclaringType)),
+                SutType.GetProperty(nameof(SutAlias.ParameterName)),
+                SutType.GetProperty(nameof(SutAlias.SpecimenValue)));
         }
 
         [Fact]
         public void ConstructorDoesNotThrow()
         {
             var fixture = new Fixture();
-            var ex = Record.Exception(() => new ParameterSpecimenBuilder(
-                typeof(ParameterSpecimenBuilder),
+            var ex = Record.Exception(() => new SutAlias(
+                typeof(SutAlias),
                 fixture.Create<string>()));
 
             Assert.Null(ex);
@@ -89,8 +89,8 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void Constructor2DoesNotThrow()
         {
             var fixture = new Fixture();
-            var ex = Record.Exception(() => new ParameterSpecimenBuilder(
-                typeof(ParameterSpecimenBuilder),
+            var ex = Record.Exception(() => new SutAlias(
+                typeof(SutAlias),
                 fixture.Create<string>(),
                 fixture.Create<int>()));
 
@@ -104,7 +104,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         {
             var fixture = new Fixture();
             var contextMock = new Mock<ISpecimenContext>();
-            var sut = new ParameterSpecimenBuilder(
+            var sut = new SutAlias(
                 typeof(ParameterSpecimenBuilderTests),
                 fixture.Create<string>());
 
@@ -128,7 +128,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 .GetParameters()
                 .First();
             var contextMock = new Mock<ISpecimenContext>();
-            var sut = new ParameterSpecimenBuilder(
+            var sut = new SutAlias(
                 declaringType,
                 parameterName,
                 specimenValue);
@@ -149,7 +149,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 .GetParameters()
                 .First();
             var contextMock = new Mock<ISpecimenContext>();
-            var sut = new ParameterSpecimenBuilder(
+            var sut = new SutAlias(
                 typeof(ParameterSpecimenBuilderTests),
                 parameterInfo.Name,
                 specimenValue);

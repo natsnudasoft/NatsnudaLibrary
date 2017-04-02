@@ -20,15 +20,15 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using System.Linq;
     using System.Reflection;
     using Moq;
-    using Natsnudasoft.NatsnudaLibrary.TestExtensions;
     using Ploeh.AutoFixture;
     using Ploeh.AutoFixture.Idioms;
     using Ploeh.AutoFixture.Kernel;
     using Xunit;
+    using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.DoesNotThrowAssertion;
 
     public sealed class DoesNotThrowAssertionTests
     {
-        private static readonly Type SutType = typeof(DoesNotThrowAssertion);
+        private static readonly Type SutType = typeof(SutAlias);
         private static readonly Type TestHelperType = typeof(VerifyHelper);
 
         private Mock<ISpecimenBuilder> specimenBuilderMock;
@@ -66,14 +66,13 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var fixture = new Fixture();
             var assertion = new ConstructorInitializedMemberAssertion(fixture);
 
-            assertion.Verify(SutType.GetProperty(nameof(DoesNotThrowAssertion.SpecimenBuilder)));
+            assertion.Verify(SutType.GetProperty(nameof(SutAlias.SpecimenBuilder)));
         }
 
         [Fact]
         public void ConstructorDoesNotThrow()
         {
-            var ex = Record.Exception(() => new DoesNotThrowAssertion(
-                new Mock<ISpecimenBuilder>().Object));
+            var ex = Record.Exception(() => new SutAlias(new Mock<ISpecimenBuilder>().Object));
 
             Assert.Null(ex);
         }
@@ -81,7 +80,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void VerifyMethodsHaveCorrectGuardClauses()
         {
-            const string VerifyMethodName = nameof(DoesNotThrowAssertion.Verify);
+            const string VerifyMethodName = nameof(SutAlias.Verify);
             var fixture = new Fixture();
             fixture.Inject((ConstructorInfo)null);
             fixture.Inject((MethodInfo)null);
@@ -178,7 +177,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 .VerifySet(v => v.PublicProperty = It.IsAny<Guid>(), Times.Once());
         }
 
-        private DoesNotThrowAssertion CreateSut(Guid guidSpecimen)
+        private SutAlias CreateSut(Guid guidSpecimen)
         {
             this.verifyHelperMock = new Mock<IVerifyHelper>();
             this.specimenBuilderMock = new Mock<ISpecimenBuilder>();
@@ -191,7 +190,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             this.specimenBuilderMock
                 .Setup(b => b.Create(TestHelperType, It.IsAny<SpecimenContext>()))
                 .Returns(new VerifyHelper(Guid.Empty));
-            return new DoesNotThrowAssertion(this.specimenBuilderMock.Object);
+            return new SutAlias(this.specimenBuilderMock.Object);
         }
 
         private class VerifyHelper

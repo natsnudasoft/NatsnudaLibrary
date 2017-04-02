@@ -17,8 +17,8 @@
 namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
 {
     using System;
-    using Natsnudasoft.NatsnudaLibrary;
     using Xunit;
+    using SutAlias = Natsnudasoft.NatsnudaLibrary.ParameterValidation;
 
     public sealed class ParameterValidationTests
     {
@@ -28,7 +28,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string NullValue = null;
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsNotNull(NullValue, ParamName));
+                () => SutAlias.IsNotNull(NullValue, ParamName));
 
             Assert.IsType<ArgumentNullException>(ex);
             Assert.Equal(ParamName, ((ArgumentNullException)ex).ParamName);
@@ -40,7 +40,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string NotNullString = "value";
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsNotNull(NotNullString, ParamName));
+                () => SutAlias.IsNotNull(NotNullString, ParamName));
 
             Assert.Null(ex);
         }
@@ -51,7 +51,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             int? nullableNoValue = null;
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsNotNull(nullableNoValue, ParamName));
+                () => SutAlias.IsNotNull(nullableNoValue, ParamName));
 
             Assert.IsType<ArgumentNullException>(ex);
             Assert.Equal(ParamName, ((ArgumentNullException)ex).ParamName);
@@ -63,7 +63,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             int? nullableValue = 5;
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsNotNull(nullableValue, ParamName));
+                () => SutAlias.IsNotNull(nullableValue, ParamName));
 
             Assert.Null(ex);
         }
@@ -74,7 +74,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string EmptyString = "";
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsNotEmpty(EmptyString, ParamName));
+                () => SutAlias.IsNotEmpty(EmptyString, ParamName));
 
             Assert.IsType<ArgumentException>(ex);
             Assert.Equal(ParamName, ((ArgumentException)ex).ParamName);
@@ -87,7 +87,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
         {
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsNotEmpty(value, ParamName));
+                () => SutAlias.IsNotEmpty(value, ParamName));
 
             Assert.Null(ex);
         }
@@ -100,7 +100,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const int CompareValue = 15;
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsGreaterThan(value, CompareValue, ParamName));
+                () => SutAlias.IsGreaterThan(value, CompareValue, ParamName));
 
             Assert.IsType<ArgumentOutOfRangeException>(ex);
             Assert.Equal(ParamName, ((ArgumentOutOfRangeException)ex).ParamName);
@@ -114,7 +114,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string CompareValue = "t";
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsGreaterThan(value, CompareValue, ParamName));
+                () => SutAlias.IsGreaterThan(value, CompareValue, ParamName));
 
             Assert.Null(ex);
         }
@@ -127,7 +127,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const int CompareValue = 30;
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsLessThan(value, CompareValue, ParamName));
+                () => SutAlias.IsLessThan(value, CompareValue, ParamName));
 
             Assert.IsType<ArgumentOutOfRangeException>(ex);
             Assert.Equal(ParamName, ((ArgumentOutOfRangeException)ex).ParamName);
@@ -141,7 +141,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string CompareValue = "t";
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsLessThan(value, CompareValue, ParamName));
+                () => SutAlias.IsLessThan(value, CompareValue, ParamName));
 
             Assert.Null(ex);
         }
@@ -153,7 +153,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const int CompareValue = 15;
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsGreaterThanOrEqualTo(Value, CompareValue, ParamName));
+                () => SutAlias.IsGreaterThanOrEqualTo(Value, CompareValue, ParamName));
 
             Assert.IsType<ArgumentOutOfRangeException>(ex);
             Assert.Equal(ParamName, ((ArgumentOutOfRangeException)ex).ParamName);
@@ -168,7 +168,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string CompareValue = "t";
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsGreaterThanOrEqualTo(value, CompareValue, ParamName));
+                () => SutAlias.IsGreaterThanOrEqualTo(value, CompareValue, ParamName));
 
             Assert.Null(ex);
         }
@@ -180,7 +180,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const int CompareValue = 25;
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsLessThanOrEqualTo(Value, CompareValue, ParamName));
+                () => SutAlias.IsLessThanOrEqualTo(Value, CompareValue, ParamName));
 
             Assert.IsType<ArgumentOutOfRangeException>(ex);
             Assert.Equal(ParamName, ((ArgumentOutOfRangeException)ex).ParamName);
@@ -195,7 +195,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string CompareValue = "t";
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsLessThanOrEqualTo(value, CompareValue, ParamName));
+                () => SutAlias.IsLessThanOrEqualTo(value, CompareValue, ParamName));
 
             Assert.Null(ex);
         }
@@ -211,7 +211,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const int MaxValue = 50;
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsBetween(value, MinValue, MaxValue, ParamName));
+                () => SutAlias.IsBetween(value, MinValue, MaxValue, ParamName));
 
             Assert.IsType<ArgumentOutOfRangeException>(ex);
             Assert.Equal(ParamName, ((ArgumentOutOfRangeException)ex).ParamName);
@@ -226,7 +226,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string MaxValue = "u";
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsBetween(value, MinValue, MaxValue, ParamName));
+                () => SutAlias.IsBetween(value, MinValue, MaxValue, ParamName));
 
             Assert.Null(ex);
         }
@@ -240,7 +240,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const int MaxValue = 50;
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsBetweenInclusive(value, MinValue, MaxValue, ParamName));
+                () => SutAlias.IsBetweenInclusive(value, MinValue, MaxValue, ParamName));
 
             Assert.IsType<ArgumentOutOfRangeException>(ex);
             Assert.Equal(ParamName, ((ArgumentOutOfRangeException)ex).ParamName);
@@ -257,7 +257,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string MaxValue = "u";
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsBetweenInclusive(value, MinValue, MaxValue, ParamName));
+                () => SutAlias.IsBetweenInclusive(value, MinValue, MaxValue, ParamName));
 
             Assert.Null(ex);
         }
@@ -269,7 +269,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string Message = "This is a message.";
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsTrue(Value, Message, ParamName));
+                () => SutAlias.IsTrue(Value, Message, ParamName));
 
             Assert.IsType<ArgumentException>(ex);
             Assert.Equal(ParamName, ((ArgumentException)ex).ParamName);
@@ -282,7 +282,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string Message = "This is a message.";
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsTrue(Value, Message, ParamName));
+                () => SutAlias.IsTrue(Value, Message, ParamName));
 
             Assert.Null(ex);
         }
@@ -294,7 +294,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string Message = "This is a message.";
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsFalse(Value, Message, ParamName));
+                () => SutAlias.IsFalse(Value, Message, ParamName));
 
             Assert.IsType<ArgumentException>(ex);
             Assert.Equal(ParamName, ((ArgumentException)ex).ParamName);
@@ -307,7 +307,7 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
             const string Message = "This is a message.";
             const string ParamName = "testParam";
             var ex = Record.Exception(
-                () => ParameterValidation.IsFalse(Value, Message, ParamName));
+                () => SutAlias.IsFalse(Value, Message, ParamName));
 
             Assert.Null(ex);
         }

@@ -19,33 +19,33 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using System;
     using System.IO;
     using System.Runtime.Serialization.Formatters.Binary;
-    using Natsnudasoft.NatsnudaLibrary.TestExtensions;
     using Ploeh.AutoFixture;
     using Ploeh.AutoFixture.Idioms;
     using Ploeh.SemanticComparison.Fluent;
     using Xunit;
+    using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.PropertyChangedRaisedException;
 
     public sealed class PropertyChangedRaisedExceptionTests
     {
-        private static readonly Type SutType = typeof(PropertyChangedRaisedException);
+        private static readonly Type SutType = typeof(SutAlias);
 
         [Fact]
         public void ConstructorSetsCorrectInitializedMembers()
         {
             var fixture = new Fixture();
             var propertyInfo =
-                SutType.GetProperty(nameof(PropertyChangedRaisedException.PropertyInfo));
+                SutType.GetProperty(nameof(SutAlias.PropertyInfo));
             fixture.Inject(propertyInfo);
             var assertion = new ConstructorInitializedMemberAssertion(fixture);
 
             assertion.Verify(
-                SutType.GetProperty(nameof(PropertyChangedRaisedException.PropertyInfo)));
+                SutType.GetProperty(nameof(SutAlias.PropertyInfo)));
         }
 
         [Fact]
         public void ConstructorDoesNotThrow()
         {
-            var ex = Record.Exception(() => new PropertyChangedRaisedException());
+            var ex = Record.Exception(() => new SutAlias());
 
             Assert.Null(ex);
         }
@@ -54,8 +54,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void Constructor2DoesNotThrow()
         {
             var fixture = new Fixture();
-            var ex = Record.Exception(() => new PropertyChangedRaisedException(
-                fixture.Create<string>()));
+            var ex = Record.Exception(() => new SutAlias(fixture.Create<string>()));
 
             Assert.Null(ex);
         }
@@ -63,8 +62,8 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void Constructor3DoesNotThrow()
         {
-            var ex = Record.Exception(() => new PropertyChangedRaisedException(
-                SutType.GetProperty(nameof(PropertyChangedRaisedException.PropertyInfo))));
+            var ex = Record.Exception(() => new SutAlias(
+                SutType.GetProperty(nameof(SutAlias.PropertyInfo))));
 
             Assert.Null(ex);
         }
@@ -73,7 +72,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void Constructor4DoesNotThrow()
         {
             var fixture = new Fixture();
-            var ex = Record.Exception(() => new PropertyChangedRaisedException(
+            var ex = Record.Exception(() => new SutAlias(
                 fixture.Create<string>(),
                 new InvalidOperationException()));
 
@@ -83,8 +82,8 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void Constructor5DoesNotThrow()
         {
-            var ex = Record.Exception(() => new PropertyChangedRaisedException(
-                SutType.GetProperty(nameof(PropertyChangedRaisedException.PropertyInfo)),
+            var ex = Record.Exception(() => new SutAlias(
+                SutType.GetProperty(nameof(SutAlias.PropertyInfo)),
                 new InvalidOperationException()));
 
             Assert.Null(ex);
@@ -94,9 +93,9 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void ExceptionSerializationCopiesAllMembers()
         {
             var propertyInfo =
-                SutType.GetProperty(nameof(PropertyChangedRaisedException.PropertyInfo));
-            var sutExpected = new PropertyChangedRaisedException(propertyInfo);
-            PropertyChangedRaisedException sutActual;
+                SutType.GetProperty(nameof(SutAlias.PropertyInfo));
+            var sutExpected = new SutAlias(propertyInfo);
+            SutAlias sutActual;
 
             using (var memoryStream = new MemoryStream())
             {
@@ -104,13 +103,13 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 binaryFormatter.Serialize(memoryStream, sutExpected);
                 memoryStream.Position = 0;
                 sutActual =
-                    (PropertyChangedRaisedException)binaryFormatter.Deserialize(memoryStream);
+                    (SutAlias)binaryFormatter.Deserialize(memoryStream);
             }
 
             Assert.NotSame(sutExpected, sutActual);
             sutActual
                 .AsSource()
-                .OfLikeness<PropertyChangedRaisedException>()
+                .OfLikeness<SutAlias>()
                 .Without(ex => ex.Data)
                 .Without(ex => ex.HelpLink)
                 .Without(ex => ex.HResult)

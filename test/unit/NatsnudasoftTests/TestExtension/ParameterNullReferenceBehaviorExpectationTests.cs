@@ -24,10 +24,12 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using Ploeh.AutoFixture.Idioms;
     using Ploeh.AutoFixture.Kernel;
     using Xunit;
+    using SutAlias =
+        Natsnudasoft.NatsnudaLibrary.TestExtensions.ParameterNullReferenceBehaviorExpectation;
 
     public sealed class ParameterNullReferenceBehaviorExpectationTests
     {
-        private static readonly Type SutType = typeof(ParameterNullReferenceBehaviorExpectation);
+        private static readonly Type SutType = typeof(SutAlias);
 
         private Mock<IGuardClauseCommand> stubMethodCommandMock;
 
@@ -44,8 +46,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void Constructor1DoesNotThrow()
         {
-            var ex = Record.Exception(() => new ParameterNullReferenceBehaviorExpectation(
-                new Mock<ISpecimenBuilder>().Object));
+            var ex = Record.Exception(() => new SutAlias(new Mock<ISpecimenBuilder>().Object));
 
             Assert.Null(ex);
         }
@@ -53,7 +54,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void Constructor2DoesNotThrow()
         {
-            var ex = Record.Exception(() => new ParameterNullReferenceBehaviorExpectation(
+            var ex = Record.Exception(() => new SutAlias(
                 new Mock<ISpecimenBuilder>().Object,
                 new Mock<IGuardClauseExtensions>().Object));
 
@@ -68,7 +69,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var assertion = new GuardClauseAssertion(fixture);
 
             assertion.Verify(
-                SutType.GetMethod(nameof(ParameterNullReferenceBehaviorExpectation.Verify)));
+                SutType.GetMethod(nameof(SutAlias.Verify)));
         }
 
         [Fact]
@@ -111,7 +112,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void VerifyWithCommandThatIsNotClassOrInterfaceDoesNotThrow()
         {
-            var sut = new ParameterNullReferenceBehaviorExpectation(
+            var sut = new SutAlias(
                 new Mock<ISpecimenBuilder>().Object);
             var commandMock = new Mock<IGuardClauseCommand>();
             commandMock.SetupGet(c => c.RequestedType).Returns(typeof(int));
@@ -130,7 +131,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             return commandMock;
         }
 
-        private ParameterNullReferenceBehaviorExpectation CreateSut(
+        private SutAlias CreateSut(
             Action stubMethodCommandMockAction)
         {
             var specimenBuilderMock = new Mock<ISpecimenBuilder>();
@@ -151,7 +152,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                     It.IsAny<ISpecimenBuilder>(),
                     It.IsAny<IGuardClauseCommand>()))
                 .Returns(this.stubMethodCommandMock.Object);
-            return new ParameterNullReferenceBehaviorExpectation(
+            return new SutAlias(
                 specimenBuilderMock.Object,
                 guardClauseExtensionsMock.Object);
         }

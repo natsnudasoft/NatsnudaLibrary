@@ -22,15 +22,15 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using System.Reflection;
     using System.Threading.Tasks;
     using Moq;
-    using Natsnudasoft.NatsnudaLibrary.TestExtensions;
     using Ploeh.AutoFixture;
     using Ploeh.AutoFixture.Idioms;
     using Ploeh.AutoFixture.Kernel;
     using Xunit;
+    using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.AsyncMethodInvokeCommand;
 
     public sealed class AsyncMethodInvokeCommandTests
     {
-        private static readonly Type SutType = typeof(AsyncMethodInvokeCommand);
+        private static readonly Type SutType = typeof(SutAlias);
 
         private Mock<IMethod> methodMock;
         private Mock<IExpansion<object>> expansionMock;
@@ -47,8 +47,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             fixture.Inject(parameterInfo);
             var assertion = new ConstructorInitializedMemberAssertion(fixture);
 
-            assertion.Verify(
-                SutType.GetProperty(nameof(AsyncMethodInvokeCommand.Timeout)));
+            assertion.Verify(SutType.GetProperty(nameof(SutAlias.Timeout)));
         }
 
         [Fact]
@@ -57,7 +56,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var parameterInfo = typeof(AsyncMethodInvokeCommandTests)
                 .GetMethod(nameof(StubMethodAsync), BindingFlags.Static | BindingFlags.NonPublic)
                 .GetParameters().First();
-            var ex = Record.Exception(() => new AsyncMethodInvokeCommand(
+            var ex = Record.Exception(() => new SutAlias(
                 new Mock<IMethod>().Object,
                 new Mock<IExpansion<object>>().Object,
                 parameterInfo));
@@ -72,7 +71,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var parameterInfo = typeof(AsyncMethodInvokeCommandTests)
                 .GetMethod(nameof(StubMethodAsync), BindingFlags.Static | BindingFlags.NonPublic)
                 .GetParameters().First();
-            var ex = Record.Exception(() => new AsyncMethodInvokeCommand(
+            var ex = Record.Exception(() => new SutAlias(
                 new Mock<IMethod>().Object,
                 new Mock<IExpansion<object>>().Object,
                 parameterInfo,
@@ -148,7 +147,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             }
         }
 
-        private AsyncMethodInvokeCommand CreateSut(Task methodReturnedTask)
+        private SutAlias CreateSut(Task methodReturnedTask)
         {
             this.methodMock = new Mock<IMethod>();
             this.methodMock
@@ -158,7 +157,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var parameterInfo = typeof(AsyncMethodInvokeCommandTests)
                 .GetMethod(nameof(StubMethodAsync), BindingFlags.Static | BindingFlags.NonPublic)
                 .GetParameters().First();
-            return new AsyncMethodInvokeCommand(
+            return new SutAlias(
                 this.methodMock.Object,
                 this.expansionMock.Object,
                 parameterInfo);

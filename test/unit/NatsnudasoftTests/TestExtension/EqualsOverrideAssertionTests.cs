@@ -29,7 +29,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 
     public sealed class EqualsOverrideAssertionTests
     {
-        private static readonly Type SutType = typeof(EqualsOverrideAssertionStub);
+        private static readonly Type SutType = typeof(SutStub);
         private static readonly Type TestHelperType = typeof(EqualsOverrideAssertionVerifyHelper);
 
         [Fact]
@@ -56,7 +56,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void ConstructorDoesNotThrow()
         {
-            var ex = Record.Exception(() => new EqualsOverrideAssertionStub(
+            var ex = Record.Exception(() => new SutStub(
                 new Mock<ISpecimenBuilder>().Object));
 
             Assert.Null(ex);
@@ -66,7 +66,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void Constructor2DoesNotThrow()
         {
             var fixture = new Fixture();
-            var ex = Record.Exception(() => new EqualsOverrideAssertionStub(
+            var ex = Record.Exception(() => new SutStub(
                 new Mock<ISpecimenBuilder>().Object,
                 fixture.Create<int>()));
 
@@ -121,7 +121,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void IsEqualsMethodWithNonEqualsMethodReturnsFalse()
         {
             var fixture = new Fixture();
-            var sut = fixture.Create<EqualsOverrideAssertionStub>();
+            var sut = fixture.Create<SutStub>();
 
             var result = sut.IsEqualsMethodTest(TestHelperType.GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.EqualsWrongName)));
@@ -133,7 +133,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void IsEqualsMethodWithEqualsMethodReturnsTrue()
         {
             var fixture = new Fixture();
-            var sut = fixture.Create<EqualsOverrideAssertionStub>();
+            var sut = fixture.Create<SutStub>();
 
             var result = sut.IsEqualsMethodTest(TestHelperType.GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.Equals),
@@ -146,7 +146,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void IsEqualsParameterObjectTypeWithNonObjectTypeParameterReturnsFalse()
         {
             var fixture = new Fixture();
-            var sut = fixture.Create<EqualsOverrideAssertionStub>();
+            var sut = fixture.Create<SutStub>();
 
             var result = sut.IsEqualsParameterObjectTypeTest(TestHelperType.GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.Equals),
@@ -159,7 +159,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void IsEqualsParameterObjectTypeWithObjectTypeParameterReturnsTrue()
         {
             var fixture = new Fixture();
-            var sut = fixture.Create<EqualsOverrideAssertionStub>();
+            var sut = fixture.Create<SutStub>();
 
             var result = sut.IsEqualsParameterObjectTypeTest(TestHelperType.GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.Equals),
@@ -172,7 +172,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void IsEqualsParameterNullableTypeWithNonNullableTypeReturnsFalse()
         {
             var fixture = new Fixture();
-            var sut = fixture.Create<EqualsOverrideAssertionStub>();
+            var sut = fixture.Create<SutStub>();
 
             var result = sut.IsEqualsParameterNullableTypeTest(TestHelperType.GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.Equals),
@@ -187,7 +187,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void IsEqualsParameterNullableTypeWithNullableTypeReturnsTrue(Type parameterType)
         {
             var fixture = new Fixture();
-            var sut = fixture.Create<EqualsOverrideAssertionStub>();
+            var sut = fixture.Create<SutStub>();
 
             var result = sut.IsEqualsParameterNullableTypeTest(TestHelperType.GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.Equals),
@@ -202,7 +202,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var fixture = new Fixture();
             var specimenBuilderMock = new Mock<ISpecimenBuilder>();
             fixture.Inject(specimenBuilderMock.Object);
-            var sut = fixture.Create<EqualsOverrideAssertionStub>();
+            var sut = fixture.Create<SutStub>();
 
             sut.CreateSpecimenTest(typeof(string));
 
@@ -210,14 +210,14 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 .Verify(b => b.Create(typeof(string), It.IsAny<ISpecimenContext>()), Times.Once());
         }
 
-        private sealed class EqualsOverrideAssertionStub : EqualsOverrideAssertion
+        private sealed class SutStub : EqualsOverrideAssertion
         {
-            public EqualsOverrideAssertionStub(ISpecimenBuilder specimenBuilder)
+            public SutStub(ISpecimenBuilder specimenBuilder)
                 : base(specimenBuilder)
             {
             }
 
-            public EqualsOverrideAssertionStub(
+            public SutStub(
                 ISpecimenBuilder specimenBuilder,
                 int successiveCount)
                 : base(specimenBuilder, successiveCount)

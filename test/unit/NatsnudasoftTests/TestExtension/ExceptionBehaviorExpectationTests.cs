@@ -35,8 +35,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         private static readonly Guid ThrowIncorrectGuid =
             new Guid("BD7A8F47-EA65-4D51-AD96-FA775CED9391");
 
-        private static readonly Type SutType =
-            typeof(ExceptionBehaviorExpectation<InvalidOperationException>);
+        private static readonly Type SutType = typeof(ExceptionBehaviorExpectation<Exception>);
 
         private Mock<IGuardClauseCommand> stubMethodCommandMock;
 

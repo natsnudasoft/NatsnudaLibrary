@@ -18,15 +18,16 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 {
     using System;
     using System.Linq;
-    using Natsnudasoft.NatsnudaLibrary.TestExtensions;
     using Ploeh.AutoFixture;
     using Ploeh.AutoFixture.Idioms;
     using Ploeh.AutoFixture.Kernel;
     using Xunit;
+    using SutAlias =
+        Natsnudasoft.NatsnudaLibrary.TestExtensions.ParameterTypeFavoringConstructorQuery;
 
     public sealed class ParameterTypeFavoringConstructorQueryTests
     {
-        private static readonly Type SutType = typeof(ParameterTypeFavoringConstructorQuery);
+        private static readonly Type SutType = typeof(SutAlias);
 
         [Fact]
         public void ConstructorHasCorrectGuardClauses()
@@ -41,8 +42,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void ConstructorDoesNotThrow()
         {
             var fixture = new Fixture();
-            var ex = Record.Exception(() => new ParameterTypeFavoringConstructorQuery(
-                fixture.Create<Type[]>()));
+            var ex = Record.Exception(() => new SutAlias(fixture.Create<Type[]>()));
 
             Assert.Null(ex);
         }
@@ -54,7 +54,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var assertion = new GuardClauseAssertion(fixture);
 
             assertion.Verify(
-                SutType.GetMethod(nameof(ParameterTypeFavoringConstructorQuery.SelectMethods)));
+                SutType.GetMethod(nameof(SutAlias.SelectMethods)));
         }
 
         [Theory]
@@ -62,7 +62,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [InlineData(typeof(string))]
         public void SelectMethodsConstructorNotFoundThrows(params Type[] parameterTypes)
         {
-            var sut = new ParameterTypeFavoringConstructorQuery(parameterTypes);
+            var sut = new SutAlias(parameterTypes);
 
             var ex = Record.Exception(() => sut.SelectMethods(typeof(SelectConstructorTestClass)));
 
@@ -74,7 +74,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         {
             var expected = typeof(SelectConstructorTestClass)
                 .GetConstructor(new Type[] { typeof(int) });
-            var sut = new ParameterTypeFavoringConstructorQuery(typeof(int));
+            var sut = new SutAlias(typeof(int));
 
             var actual = sut.SelectMethods(typeof(SelectConstructorTestClass));
 
