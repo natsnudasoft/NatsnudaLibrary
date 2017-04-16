@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatsnudaLibrary", "src\NatsnudaLibrary\NatsnudaLibrary.csproj", "{9B0AD511-AF08-4A36-9A68-EDCBF2EDF605}"
 EndProject
@@ -40,6 +40,7 @@ Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "NatsnudasoftDocs", "docs\Na
 	ProjectSection(ProjectDependencies) = postProject
 		{9B0AD511-AF08-4A36-9A68-EDCBF2EDF605} = {9B0AD511-AF08-4A36-9A68-EDCBF2EDF605}
 		{26294A1F-6DAE-4456-BACA-7B6E9D380AE7} = {26294A1F-6DAE-4456-BACA-7B6E9D380AE7}
+		{0213E1F4-5ED1-455F-87B5-858B5C61821E} = {0213E1F4-5ED1-455F-87B5-858B5C61821E}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatsnudasoftTests", "test\unit\NatsnudasoftTests\NatsnudasoftTests.csproj", "{0213E1F4-5ED1-455F-87B5-858B5C61821E}"
