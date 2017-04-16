@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <!-- The configuration and platform will be used to determine which assemblies to include from solution and
 				 project documentation sources -->
@@ -13,7 +13,7 @@
     <RootNamespace>Natsnudasoft.NatsnudasoftDocs</RootNamespace>
     <Name>NatsnudasoftDocs</Name>
     <!-- SHFB properties -->
-    <FrameworkVersion>.NET Framework 4.6</FrameworkVersion>
+    <FrameworkVersion>.NET Framework 4.7</FrameworkVersion>
     <OutputPath>Help\</OutputPath>
     <HtmlHelpName>NatsnudasoftDocs</HtmlHelpName>
     <Language>en-US</Language>
@@ -49,8 +49,8 @@
     <HelpTitle>Natsnudasoft Library Documentation</HelpTitle>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
-    <ComponentPath>..\..\packages\EWSoftware.SHFB.NETFramework.4.6.2</ComponentPath>
-    <SHFBROOT Condition=" '$(SHFBROOT)' == '' ">$(MSBuildThisFileDirectory)..\..\packages\EWSoftware.SHFB.2017.1.28.0\tools\</SHFBROOT>
+    <ComponentPath>..\..\packages\EWSoftware.SHFB.NETFramework.4.7</ComponentPath>
+    <SHFBROOT Condition=" '$(SHFBROOT)' == '' ">$(MSBuildThisFileDirectory)..\..\packages\EWSoftware.SHFB.2017.5.15.0\tools\</SHFBROOT>
     <ComponentConfigurations>
       <ComponentConfig id="IntelliSense Component" enabled="True">
         <component id="IntelliSense Component">

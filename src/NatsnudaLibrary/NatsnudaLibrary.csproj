@@ -79,8 +79,8 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\codecracker.CSharp.1.0.1\analyzers\dotnet\cs\CodeCracker.Common.dll" />
-    <Analyzer Include="..\..\packages\codecracker.CSharp.1.0.1\analyzers\dotnet\cs\CodeCracker.CSharp.dll" />
+    <Analyzer Include="..\..\packages\codecracker.CSharp.1.0.3\analyzers\dotnet\cs\CodeCracker.Common.dll" />
+    <Analyzer Include="..\..\packages\codecracker.CSharp.1.0.3\analyzers\dotnet\cs\CodeCracker.CSharp.dll" />
     <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\Esent.Interop.dll" />
     <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\Menees.Analyzers.dll" />
     <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\Microsoft.Build.dll" />
