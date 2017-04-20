@@ -20,6 +20,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Threading;
     using System.Threading.Tasks;
     using Moq;
     using Ploeh.AutoFixture;
@@ -95,7 +96,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void ExecuteAsIGuardClauseCommandWithTaskWithExceptionThrows()
         {
-            var sut = this.CreateSut(StubMethodAsync(true, false));
+            var sut = this.CreateSut(StubMethodAsync(true, null));
 
 #pragma warning disable IDE0004 // Cast is redundant
             var ex = Record.Exception(() => ((IGuardClauseCommand)sut).Execute(null));
@@ -107,20 +108,25 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void ExecuteAsIGuardClauseCommandWithTimeoutCausingTaskThrows()
         {
-            var sut = this.CreateSut(StubMethodAsync(false, true));
+            using (var cts = new CancellationTokenSource())
+            {
+                var task = StubMethodAsync(false, cts.Token);
+                var sut = this.CreateSut(task);
 
 #pragma warning disable IDE0004 // Cast is redundant
-            var ex = Record.Exception(() => ((IGuardClauseCommand)sut).Execute(null));
+                var ex = Record.Exception(() => ((IGuardClauseCommand)sut).Execute(null));
 #pragma warning restore IDE0004 // Cast is redundant
 
-            Assert.IsType<GuardClauseException>(ex);
+                Assert.IsType<GuardClauseException>(ex);
+                cts.Cancel();
+            }
         }
 
         [Fact]
         public void ExecuteAsIGuardClauseCommandWithTaskInvokesAndAwaitsMethod()
         {
             const int ExpansionValue = 16;
-            var task = StubMethodAsync(false, false);
+            var task = StubMethodAsync(false, null);
             var sut = this.CreateSut(task);
 
 #pragma warning disable IDE0004 // Cast is redundant
@@ -131,7 +137,9 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             Assert.Equal(TaskStatus.RanToCompletion, task.Status);
         }
 
-        private static async Task StubMethodAsync(bool throwException, bool longRunning)
+        private static async Task StubMethodAsync(
+            bool throwException,
+            CancellationToken? cancellationToken)
         {
             if (throwException)
             {
@@ -140,10 +148,9 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 
             await Task.Yield();
 
-            if (longRunning)
+            if (cancellationToken.HasValue)
             {
-                const int DelayTime = 20000;
-                await Task.Delay(DelayTime).ConfigureAwait(false);
+                await Task.Delay(Timeout.Infinite, cancellationToken.Value).ConfigureAwait(false);
             }
         }
 
