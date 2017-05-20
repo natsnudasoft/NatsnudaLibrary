@@ -25,10 +25,12 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using Ploeh.AutoFixture.Idioms;
     using Ploeh.AutoFixture.Kernel;
     using Xunit;
+    using SutAlias =
+        Natsnudasoft.NatsnudaLibrary.TestExtensions.EqualsOverrideTheoriesSuccessiveAssertion;
 
     public sealed class EqualsOverrideTheoriesSuccessiveAssertionTests
     {
-        private static readonly Type SutType = typeof(EqualsOverrideTheoriesSuccessiveAssertion);
+        private static readonly Type SutType = typeof(SutAlias);
         private static readonly Type TestHelperType = typeof(EqualsOverrideAssertionVerifyHelper);
 
         [Fact]
@@ -52,7 +54,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void ConstructorDoesNotThrow()
         {
-            var ex = Record.Exception(() => new EqualsOverrideTheoriesSuccessiveAssertion(
+            var ex = Record.Exception(() => new SutAlias(
                 new Mock<ISpecimenBuilder>().Object));
 
             Assert.Null(ex);
@@ -67,7 +69,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 true,
                 fixture.Create<EqualsOverrideAssertionVerifyHelper>(),
                 false);
-            var sut = new EqualsOverrideTheoriesSuccessiveAssertion(fixture, equalsOverrideTheory);
+            var sut = new SutAlias(fixture, equalsOverrideTheory);
 
             var ex = Record.Exception(() => sut.Verify(TestHelperType.GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.Equals),
@@ -89,7 +91,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 verifyHelperMock.Object,
                 true,
                 false);
-            var sut = new EqualsOverrideTheoriesSuccessiveAssertion(fixture, equalsOverrideTheory);
+            var sut = new SutAlias(fixture, equalsOverrideTheory);
 
             sut.Verify(verifyHelperMock.Object.GetType().GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.Equals),
@@ -113,7 +115,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 new EqualsOverrideAssertionVerifyHelper(false, false, false),
                 differentSuccessiveTheory,
                 true);
-            var sut = new EqualsOverrideTheoriesSuccessiveAssertion(fixture, equalsOverrideTheory);
+            var sut = new SutAlias(fixture, equalsOverrideTheory);
 
             var ex = Record.Exception(() => sut.Verify(TestHelperType.GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.Equals),
@@ -141,7 +143,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 fixture.Create<EqualsOverrideAssertionVerifyHelper>(),
                 fixture.Create<EqualsOverrideAssertionVerifyHelper>(),
                 true);
-            var sut = new EqualsOverrideTheoriesSuccessiveAssertion(fixture, equalsOverrideTheory);
+            var sut = new SutAlias(fixture, equalsOverrideTheory);
 
             sut.Verify(verifyHelperMock.Object.GetType().GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.Equals),

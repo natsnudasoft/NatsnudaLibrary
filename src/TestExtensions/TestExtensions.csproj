@@ -50,9 +50,8 @@
       <HintPath>..\..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Moq, Version=4.7.1.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Moq.4.7.1\lib\net45\Moq.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Moq, Version=4.7.10.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Moq.4.7.10\lib\net45\Moq.dll</HintPath>
     </Reference>
     <Reference Include="Ploeh.Albedo, Version=1.0.2.0, Culture=neutral, PublicKeyToken=179ef6dd03497bbd, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Albedo.1.0.2\lib\net35\Ploeh.Albedo.dll</HintPath>
@@ -149,14 +148,31 @@
     </AdditionalFiles>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\codecracker.CSharp.1.0.1\analyzers\dotnet\cs\CodeCracker.Common.dll" />
-    <Analyzer Include="..\..\packages\codecracker.CSharp.1.0.1\analyzers\dotnet\cs\CodeCracker.CSharp.dll" />
-    <Analyzer Include="..\..\packages\Menees.Analyzers.1.1.1.0\analyzers\dotnet\cs\Menees.Analyzers.dll" />
-    <Analyzer Include="..\..\packages\Menees.Analyzers.1.1.1.0\analyzers\dotnet\cs\Microsoft.Build.dll" />
-    <Analyzer Include="..\..\packages\Menees.Analyzers.1.1.1.0\analyzers\dotnet\cs\Microsoft.Build.Engine.dll" />
-    <Analyzer Include="..\..\packages\Menees.Analyzers.1.1.1.0\analyzers\dotnet\cs\Microsoft.Build.Framework.dll" />
-    <Analyzer Include="..\..\packages\Menees.Analyzers.1.1.1.0\analyzers\dotnet\cs\Microsoft.Build.Tasks.Core.dll" />
-    <Analyzer Include="..\..\packages\Menees.Analyzers.1.1.1.0\analyzers\dotnet\cs\Microsoft.Build.Utilities.Core.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\Esent.Interop.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\Menees.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\Microsoft.Build.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\Microsoft.Build.Framework.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\Microsoft.Build.Tasks.Core.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\Microsoft.Build.Utilities.Core.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.AppContext.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Console.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Diagnostics.FileVersionInfo.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Diagnostics.StackTrace.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.IO.Compression.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.IO.FileSystem.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.IO.FileSystem.Primitives.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Security.Cryptography.Algorithms.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Security.Cryptography.Encoding.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Security.Cryptography.Primitives.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Security.Cryptography.X509Certificates.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Text.Encoding.CodePages.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Threading.Tasks.Dataflow.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Threading.Thread.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.ValueTuple.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Xml.ReaderWriter.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Xml.XmlDocument.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Xml.XPath.dll" />
+    <Analyzer Include="..\..\packages\Menees.Analyzers.2017.1.0.1\analyzers\dotnet\cs\System.Xml.XPath.XDocument.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />

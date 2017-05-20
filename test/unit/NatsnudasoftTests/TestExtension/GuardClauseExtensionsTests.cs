@@ -27,17 +27,18 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using Ploeh.AutoFixture.Idioms;
     using Ploeh.AutoFixture.Kernel;
     using Xunit;
+    using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.GuardClauseExtensions;
 
     public sealed class GuardClauseExtensionsTests
     {
-        private static readonly Type SutType = typeof(GuardClauseExtensions);
+        private static readonly Type SutType = typeof(SutAlias);
         private static readonly Type TaskReturnType = typeof(GuardClauseAssertion).Assembly.GetType(
             "Ploeh.AutoFixture.Idioms.GuardClauseAssertion+TaskReturnMethodInvokeCommand");
 
         [Fact]
         public void ConstructorDoesNotThrow()
         {
-            var ex = Record.Exception(() => new GuardClauseExtensions());
+            var ex = Record.Exception(() => new SutAlias());
 
             Assert.Null(ex);
         }
@@ -46,7 +47,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void Constructor2DoesNotThrow()
         {
             var fixture = new Fixture();
-            var ex = Record.Exception(() => new GuardClauseExtensions(fixture.Create<int>()));
+            var ex = Record.Exception(() => new SutAlias(fixture.Create<int>()));
 
             Assert.Null(ex);
         }
@@ -59,7 +60,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var assertion = new GuardClauseAssertion(fixture);
 
             assertion.Verify(
-                SutType.GetMethod(nameof(GuardClauseExtensions.CreateExtendedCommand)));
+                SutType.GetMethod(nameof(SutAlias.CreateExtendedCommand)));
         }
 
         [Fact]
@@ -71,13 +72,13 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var assertion = new GuardClauseAssertion(fixture);
 
             assertion.Verify(
-                SutType.GetMethod(nameof(GuardClauseExtensions.TryGetMethodInvokeCommand)));
+                SutType.GetMethod(nameof(SutAlias.TryGetMethodInvokeCommand)));
         }
 
         [Fact]
         public void CreateExtendedCommandInvalidBaseCommandReturnsOriginalCommand()
         {
-            var sut = new GuardClauseExtensions();
+            var sut = new SutAlias();
             var command = CreateWrappedMethodInvokeCommand(
                 new Mock<IMethod>().Object,
                 new Mock<IExpansion<object>>().Object);
@@ -90,7 +91,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void CreateExtendedCommandWithStaticMethodReturnsMethodInvokeCommand()
         {
-            var sut = new GuardClauseExtensions();
+            var sut = new SutAlias();
             var methodInfo = typeof(GuardClauseExtensionsTests).GetMethod(
                 nameof(StaticCommandHelperMethod),
                 BindingFlags.Static | BindingFlags.NonPublic);
@@ -108,7 +109,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void CreateExtendedCommandWithStaticAsyncMethodReturnsMethodInvokeCommand()
         {
-            var sut = new GuardClauseExtensions();
+            var sut = new SutAlias();
             var methodInfo = typeof(GuardClauseExtensionsTests).GetMethod(
                 nameof(StaticCommandHelperMethodAsync),
                 BindingFlags.Static | BindingFlags.NonPublic);
@@ -126,7 +127,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void CreateExtendedCommandWithInstanceMethodReturnsMethodInvokeCommand()
         {
-            var sut = new GuardClauseExtensions();
+            var sut = new SutAlias();
             var methodInfo = typeof(GuardClauseExtensionsTests).GetMethod(
                 nameof(this.InstanceCommandHelperMethod),
                 BindingFlags.Instance | BindingFlags.NonPublic);
@@ -144,7 +145,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void CreateExtendedCommandWithInstanceAsyncMethodReturnsMethodInvokeCommand()
         {
-            var sut = new GuardClauseExtensions();
+            var sut = new SutAlias();
             var methodInfo = typeof(GuardClauseExtensionsTests).GetMethod(
                 nameof(this.InstanceCommandHelperMethodAsync),
                 BindingFlags.Instance | BindingFlags.NonPublic);
@@ -162,7 +163,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void TryGetMethodInvokeCommandDoesNotContainMethodInvokeCommandReturnsFalse()
         {
-            var sut = new GuardClauseExtensions();
+            var sut = new SutAlias();
             MethodInvokeCommand methodInvokeCommand;
 
             var actual = sut.TryGetMethodInvokeCommand(
@@ -176,7 +177,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void TryGetMethodInvokeCommandHasMethodInvokeCommandReturnsCommand()
         {
-            var sut = new GuardClauseExtensions();
+            var sut = new SutAlias();
             MethodInvokeCommand methodInvokeCommand;
             var command = CreateWrappedMethodInvokeCommand(
                 new Mock<IMethod>().Object,
@@ -191,7 +192,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void TryGetMethodInvokeCommandHasTaskTypeMethodInvokeCommandReturnsCommand()
         {
-            var sut = new GuardClauseExtensions();
+            var sut = new SutAlias();
             var testHelperMethod = typeof(GuardClauseExtensionsTests)
                 .GetMethod(
                     nameof(StaticCommandHelperMethod),

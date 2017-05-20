@@ -16,15 +16,15 @@
 
 namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 {
-    using Natsnudasoft.NatsnudaLibrary.TestExtensions;
     using Xunit;
+    using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.AutoMoqDataAttribute;
 
     public sealed class AutoMoqDataAttributeTests
     {
         [Fact]
         public void ConstructorDoesNotThrow()
         {
-            var ex = Record.Exception(() => new AutoMoqDataAttribute());
+            var ex = Record.Exception(() => new SutAlias());
 
             Assert.Null(ex);
         }

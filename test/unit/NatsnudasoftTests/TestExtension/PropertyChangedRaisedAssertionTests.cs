@@ -25,10 +25,11 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using Ploeh.AutoFixture.Idioms;
     using Ploeh.AutoFixture.Kernel;
     using Xunit;
+    using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.PropertyChangedRaisedAssertion;
 
     public sealed class PropertyChangedRaisedAssertionTests
     {
-        private static readonly Type SutType = typeof(PropertyChangedRaisedAssertion);
+        private static readonly Type SutType = typeof(SutAlias);
 
         [Fact]
         public void ConstructorHasCorrectGuardClauses()
@@ -47,15 +48,13 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             fixture.Inject<IEqualityComparer<object>>(EqualityComparer<object>.Default);
             var assertion = new ConstructorInitializedMemberAssertion(fixture);
 
-            assertion.Verify(
-                SutType.GetProperty(nameof(PropertyChangedRaisedAssertion.SpecimenBuilder)));
+            assertion.Verify(SutType.GetProperty(nameof(SutAlias.SpecimenBuilder)));
         }
 
         [Fact]
         public void ConstructorDoesNotThrow()
         {
-            var ex = Record.Exception(() => new PropertyChangedRaisedAssertion(
-                new Mock<ISpecimenBuilder>().Object));
+            var ex = Record.Exception(() => new SutAlias(new Mock<ISpecimenBuilder>().Object));
 
             Assert.Null(ex);
         }
@@ -63,7 +62,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void Constructor2DoesNotThrow()
         {
-            var ex = Record.Exception(() => new PropertyChangedRaisedAssertion(
+            var ex = Record.Exception(() => new SutAlias(
                 new Mock<ISpecimenBuilder>().Object,
                 new Mock<IEqualityComparer<object>>().Object));
 
@@ -74,7 +73,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void VerifyWithDoesNotImplementInterfacePropertyChangedDoesNotRaisePropertyChanged()
         {
             var fixture = new Fixture();
-            var sut = fixture.Create<PropertyChangedRaisedAssertion>();
+            var sut = fixture.Create<SutAlias>();
             var testType = typeof(DoesNotImplementInterfacePropertyChangedTest);
             var testHelper = new DoesNotImplementInterfacePropertyChangedTest();
             var propertyChangedRaised = false;
@@ -94,7 +93,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void VerifyWithPrivateSetPropertyDoesNotRaisePropertyChanged()
         {
             var fixture = new Fixture();
-            var sut = fixture.Create<PropertyChangedRaisedAssertion>();
+            var sut = fixture.Create<SutAlias>();
             var testType = typeof(PropertyChangedPrivateSetTest);
             var testHelper = new PropertyChangedPrivateSetTest();
             var propertyChangedRaised = false;
@@ -114,7 +113,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void VerifyWithDoesNotRaisePropertyChangedThrows()
         {
             var fixture = new Fixture();
-            var sut = fixture.Create<PropertyChangedRaisedAssertion>();
+            var sut = fixture.Create<SutAlias>();
             var testType = typeof(PropertyChangedDoesNotRaiseTest);
             var testHelper = new PropertyChangedDoesNotRaiseTest();
             var propertyChangedRaised = false;
@@ -141,7 +140,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             specimenBuilderMock
                 .Setup(b => b.Create(typeof(PropertyChangedTest), It.IsAny<ISpecimenContext>()))
                 .Returns(new PropertyChangedTest());
-            var sut = new PropertyChangedRaisedAssertion(specimenBuilderMock.Object);
+            var sut = new SutAlias(specimenBuilderMock.Object);
             var testType = typeof(PropertyChangedTest);
 
             var ex = Record.Exception(() => sut.Verify(testType.GetProperty(
@@ -154,7 +153,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void VerifyWithExplicitPropertyChangedRaisesPropertyChanged()
         {
             var fixture = new Fixture();
-            var sut = fixture.Create<PropertyChangedRaisedAssertion>();
+            var sut = fixture.Create<SutAlias>();
             var testType = typeof(ExplicitPropertyChangedTest);
             var testHelper = new ExplicitPropertyChangedTest();
             var propertyChangedRaised = false;
@@ -173,7 +172,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void VerifyWithPropertyChangedRaisesPropertyChanged()
         {
             var fixture = new Fixture();
-            var sut = fixture.Create<PropertyChangedRaisedAssertion>();
+            var sut = fixture.Create<SutAlias>();
             var testType = typeof(PropertyChangedTest);
             var testHelper = new PropertyChangedTest();
             var propertyChangedRaised = false;
