@@ -24,10 +24,11 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using Ploeh.AutoFixture.Idioms;
     using Ploeh.AutoFixture.Kernel;
     using Xunit;
+    using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.ParameterCustomization;
 
     public sealed class ParameterCustomizationTests
     {
-        private static readonly Type SutType = typeof(ParameterCustomization);
+        private static readonly Type SutType = typeof(SutAlias);
 
         [Fact]
         public void ConstructorHasCorrectGuardClauses()
@@ -41,7 +42,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void ConstructorWithEmptyParameterNameThrows()
         {
-            var ex = Record.Exception(() => new ParameterCustomization(
+            var ex = Record.Exception(() => new SutAlias(
                 typeof(ParameterCustomizationTests),
                 string.Empty));
 
@@ -53,7 +54,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         {
             var fixture = new Fixture();
 
-            var ex = Record.Exception(() => new ParameterCustomization(
+            var ex = Record.Exception(() => new SutAlias(
                 typeof(ParameterCustomizationTests),
                 string.Empty,
                 fixture.Create<int>()));
@@ -68,16 +69,16 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var assertion = new ConstructorInitializedMemberAssertion(fixture);
 
             assertion.Verify(
-                SutType.GetProperty(nameof(ParameterCustomization.DeclaringType)),
-                SutType.GetProperty(nameof(ParameterCustomization.ParameterName)),
-                SutType.GetProperty(nameof(ParameterCustomization.SpecimenValue)));
+                SutType.GetProperty(nameof(SutAlias.DeclaringType)),
+                SutType.GetProperty(nameof(SutAlias.ParameterName)),
+                SutType.GetProperty(nameof(SutAlias.SpecimenValue)));
         }
 
         [Fact]
         public void ConstructorDoesNotThrow()
         {
             var fixture = new Fixture();
-            var ex = Record.Exception(() => new ParameterCustomization(
+            var ex = Record.Exception(() => new SutAlias(
                 typeof(ParameterCustomizationTests),
                 fixture.Create<string>()));
 
@@ -88,7 +89,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void Constructor2DoesNotThrow()
         {
             var fixture = new Fixture();
-            var ex = Record.Exception(() => new ParameterCustomization(
+            var ex = Record.Exception(() => new SutAlias(
                 typeof(ParameterCustomizationTests),
                 fixture.Create<string>(),
                 fixture.Create<int>()));
@@ -104,7 +105,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var customizationsMock = new Mock<IList<ISpecimenBuilder>>();
             var declaringType = typeof(ParameterCustomizationTests);
             var parameterName = fixture.Create<string>();
-            var sut = new ParameterCustomization(declaringType, parameterName);
+            var sut = new SutAlias(declaringType, parameterName);
             fixtureMock.SetupGet(f => f.Customizations).Returns(customizationsMock.Object);
 
             sut.Customize(fixtureMock.Object);
@@ -126,7 +127,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var declaringType = typeof(ParameterCustomizationTests);
             var parameterName = fixture.Create<string>();
             object specimenValue = fixture.Create<int>();
-            var sut = new ParameterCustomization(declaringType, parameterName, specimenValue);
+            var sut = new SutAlias(declaringType, parameterName, specimenValue);
             fixtureMock.SetupGet(f => f.Customizations).Returns(customizationsMock.Object);
 
             sut.Customize(fixtureMock.Object);

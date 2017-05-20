@@ -7,6 +7,7 @@
       secure: +hgrWh6vwfA7rQRwEGfD0od5TBGW/jPEyGwy2jlBM4vZrtjNwnwaa9IzCrig5A+6
     STRONG_NAME_SECRET:
       secure: 4W8bFbUP7bJsxCqGF6+xfy7kCUjQscJcrGmjegVxxBs=
+  image: Visual Studio 2017
   configuration: Release
   platform: Any CPU
   install:
@@ -70,6 +71,7 @@
       secure: +hgrWh6vwfA7rQRwEGfD0od5TBGW/jPEyGwy2jlBM4vZrtjNwnwaa9IzCrig5A+6
     STRONG_NAME_SECRET:
       secure: 4W8bFbUP7bJsxCqGF6+xfy7kCUjQscJcrGmjegVxxBs=
+  image: Visual Studio 2017
   configuration: Release
   platform: Any CPU
   install:

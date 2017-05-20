@@ -20,10 +20,11 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using Natsnudasoft.NatsnudaLibrary.TestExtensions;
     using Ploeh.AutoFixture.Idioms;
     using Xunit;
+    using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.EqualsOverrideTheory;
 
     public sealed class EqualsOverrideTheoryTests
     {
-        private static readonly Type SutType = typeof(EqualsOverrideTheory);
+        private static readonly Type SutType = typeof(SutAlias);
 
         [Theory]
         [AutoMoqData]
@@ -45,9 +46,9 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             ConstructorInitializedMemberAssertion assertion)
         {
             assertion.Verify(
-                SutType.GetProperty(nameof(EqualsOverrideTheory.Left)),
-                SutType.GetProperty(nameof(EqualsOverrideTheory.Right)),
-                SutType.GetProperty(nameof(EqualsOverrideTheory.ExpectedResult)));
+                SutType.GetProperty(nameof(SutAlias.Left)),
+                SutType.GetProperty(nameof(SutAlias.Right)),
+                SutType.GetProperty(nameof(SutAlias.ExpectedResult)));
         }
     }
 }

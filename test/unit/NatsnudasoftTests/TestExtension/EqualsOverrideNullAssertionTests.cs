@@ -24,10 +24,11 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using Ploeh.AutoFixture.Idioms;
     using Ploeh.AutoFixture.Kernel;
     using Xunit;
+    using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.EqualsOverrideNullAssertion;
 
     public sealed class EqualsOverrideNullAssertionTests
     {
-        private static readonly Type SutType = typeof(EqualsOverrideNullAssertion);
+        private static readonly Type SutType = typeof(SutAlias);
         private static readonly Type TestHelperType = typeof(EqualsOverrideAssertionVerifyHelper);
 
         [Fact]
@@ -51,7 +52,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         [Fact]
         public void ConstructorDoesNotThrow()
         {
-            var ex = Record.Exception(() => new EqualsOverrideNullAssertion(
+            var ex = Record.Exception(() => new SutAlias(
                 new Mock<ISpecimenBuilder>().Object));
 
             Assert.Null(ex);
@@ -66,7 +67,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 CallBase = true
             };
             fixture.Inject(verifyHelperMock.Object);
-            var sut = fixture.Create<EqualsOverrideNullAssertion>();
+            var sut = fixture.Create<SutAlias>();
 
             sut.Verify(TestHelperType.GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.Equals),
@@ -80,7 +81,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         {
             var fixture = new Fixture();
             fixture.Inject(new EqualsOverrideAssertionVerifyHelper(true, true, false));
-            var sut = fixture.Create<EqualsOverrideNullAssertion>();
+            var sut = fixture.Create<SutAlias>();
 
             var ex = Record.Exception(() => sut.Verify(TestHelperType.GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.Equals),
@@ -98,7 +99,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 CallBase = true
             };
             fixture.Inject(verifyHelperMock.Object);
-            var sut = fixture.Create<EqualsOverrideNullAssertion>();
+            var sut = fixture.Create<SutAlias>();
 
             sut.Verify(TestHelperType.GetMethod(
                 nameof(EqualsOverrideAssertionVerifyHelper.Equals),

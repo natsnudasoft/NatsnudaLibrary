@@ -19,14 +19,14 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using System;
     using System.Linq;
     using System.Reflection;
-    using Natsnudasoft.NatsnudaLibrary.TestExtensions;
     using Ploeh.AutoFixture;
     using Ploeh.AutoFixture.Idioms;
     using Xunit;
+    using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.ParameterAttribute;
 
     public sealed class ParameterAttributeTests
     {
-        private static readonly Type SutType = typeof(ParameterAttribute);
+        private static readonly Type SutType = typeof(SutAlias);
 
         [Fact]
         public void ConstructorHasCorrectGuardClauses()
@@ -44,15 +44,15 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var assertion = new ConstructorInitializedMemberAssertion(fixture);
 
             assertion.Verify(
-                SutType.GetProperty(nameof(ParameterAttribute.ParameterName)),
-                SutType.GetProperty(nameof(ParameterAttribute.SpecimenValue)));
+                SutType.GetProperty(nameof(SutAlias.ParameterName)),
+                SutType.GetProperty(nameof(SutAlias.SpecimenValue)));
         }
 
         [Fact]
         public void ConstructorDoesNotThrow()
         {
             var fixture = new Fixture();
-            var ex = Record.Exception(() => new ParameterAttribute(fixture.Create<string>()));
+            var ex = Record.Exception(() => new SutAlias(fixture.Create<string>()));
 
             Assert.Null(ex);
         }
@@ -62,7 +62,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         {
             var fixture = new Fixture();
             var ex = Record.Exception(() =>
-                new ParameterAttribute(fixture.Create<string>(), fixture.Create<int>()));
+                new SutAlias(fixture.Create<string>(), fixture.Create<int>()));
 
             Assert.Null(ex);
         }
@@ -77,14 +77,14 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             fixture.Inject(testMethod.GetParameters().First());
             var assertion = new GuardClauseAssertion(fixture);
 
-            assertion.Verify(SutType.GetMethod(nameof(ParameterAttribute.GetCustomization)));
+            assertion.Verify(SutType.GetMethod(nameof(SutAlias.GetCustomization)));
         }
 
         [Fact]
         public void GetCustomizationWithoutSpecimenValueReturnsCustomization()
         {
             var fixture = new Fixture();
-            var sut = new ParameterAttribute(fixture.Create<string>());
+            var sut = new SutAlias(fixture.Create<string>());
 
             var testMethod = typeof(ParameterAttributeTests).GetMethod(
                 nameof(MethodWithParameterTestStub),
@@ -98,7 +98,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         public void GetCustomizationWithSpecimenValueReturnsCustomization()
         {
             var fixture = new Fixture();
-            var sut = new ParameterAttribute(fixture.Create<string>(), fixture.Create<int>());
+            var sut = new SutAlias(fixture.Create<string>(), fixture.Create<int>());
 
             var testMethod = typeof(ParameterAttributeTests).GetMethod(
                 nameof(MethodWithParameterTestStub),
