@@ -39,7 +39,6 @@ namespace Natsnudasoft.NatsnudaLibrary
         /// <see langword="null"/>.</exception>
         [ContractArgumentValidator]
         public static void IsNotNull<T>([ValidatedNotNull]T value, string valueName)
-            where T : class
         {
             if (value == null)
             {
