@@ -40,7 +40,7 @@ namespace Natsnudasoft.NatsnudaLibrary
         [ContractArgumentValidator]
         public static void IsNotNull<T>([ValidatedNotNull]T value, string valueName)
         {
-            if (value == null)
+            if (ReferenceEquals(value, null))
             {
                 throw new ArgumentNullException(valueName);
             }
