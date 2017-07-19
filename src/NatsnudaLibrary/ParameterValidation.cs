@@ -17,6 +17,7 @@
 namespace Natsnudasoft.NatsnudaLibrary
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Diagnostics.Contracts;
@@ -101,6 +102,31 @@ namespace Natsnudasoft.NatsnudaLibrary
         }
 
         /// <summary>
+        /// Validates that the specified value is greater than a specified compare value.
+        /// </summary>
+        /// <typeparam name="T">The type of the value being validated.</typeparam>
+        /// <param name="value">The value to validate is greater than the specified compare value.
+        /// </param>
+        /// <param name="compareValue">The compare value to validate against.</param>
+        /// <param name="valueName">The name of the parameter being validated.</param>
+        /// <param name="comparer">The comparer to use to compare the specified values.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than or
+        /// equal to <paramref name="compareValue"/>.</exception>
+        public static void IsGreaterThan<T>(
+            T value,
+            T compareValue,
+            string valueName,
+            IComparer<T> comparer)
+        {
+            if (comparer?.Compare(value, compareValue) <= 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    valueName,
+                    Invariant($"Value must be greater than {compareValue}."));
+            }
+        }
+
+        /// <summary>
         /// Validates that the specified value is less than a specified compare value.
         /// </summary>
         /// <typeparam name="T">The type of the value being validated.</typeparam>
@@ -114,6 +140,31 @@ namespace Natsnudasoft.NatsnudaLibrary
             where T : IComparable<T>
         {
             if (value?.CompareTo(compareValue) >= 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    valueName,
+                    Invariant($"Value must be less than {compareValue}."));
+            }
+        }
+
+        /// <summary>
+        /// Validates that the specified value is less than a specified compare value.
+        /// </summary>
+        /// <typeparam name="T">The type of the value being validated.</typeparam>
+        /// <param name="value">The value to validate is less than the specified compare value.
+        /// </param>
+        /// <param name="compareValue">The compare value to validate against.</param>
+        /// <param name="valueName">The name of the parameter being validated.</param>
+        /// <param name="comparer">The comparer to use to compare the specified values.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is greater than
+        /// or equal to <paramref name="compareValue"/>.</exception>
+        public static void IsLessThan<T>(
+            T value,
+            T compareValue,
+            string valueName,
+            IComparer<T> comparer)
+        {
+            if (comparer?.Compare(value, compareValue) >= 0)
             {
                 throw new ArgumentOutOfRangeException(
                     valueName,
@@ -144,6 +195,32 @@ namespace Natsnudasoft.NatsnudaLibrary
         }
 
         /// <summary>
+        /// Validates that the specified value is greater than or equal to a specified compare
+        /// value.
+        /// </summary>
+        /// <typeparam name="T">The type of the value being validated.</typeparam>
+        /// <param name="value">The value to validate is greater than or equal to the specified
+        /// compare value.</param>
+        /// <param name="compareValue">The compare value to validate against.</param>
+        /// <param name="valueName">The name of the parameter being validated.</param>
+        /// <param name="comparer">The comparer to use to compare the specified values.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than
+        /// <paramref name="compareValue"/>.</exception>
+        public static void IsGreaterThanOrEqualTo<T>(
+            T value,
+            T compareValue,
+            string valueName,
+            IComparer<T> comparer)
+        {
+            if (comparer?.Compare(value, compareValue) < 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    valueName,
+                    Invariant($"Value must be greater than or equal to {compareValue}."));
+            }
+        }
+
+        /// <summary>
         /// Validates that the specified value is less than or equal to a specified compare
         /// value.
         /// </summary>
@@ -158,6 +235,32 @@ namespace Natsnudasoft.NatsnudaLibrary
             where T : IComparable<T>
         {
             if (value?.CompareTo(compareValue) > 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    valueName,
+                    Invariant($"Value must be less than or equal to {compareValue}."));
+            }
+        }
+
+        /// <summary>
+        /// Validates that the specified value is less than or equal to a specified compare
+        /// value.
+        /// </summary>
+        /// <typeparam name="T">The type of the value being validated.</typeparam>
+        /// <param name="value">The value to validate is less than or equal to the specified
+        /// compare value.</param>
+        /// <param name="compareValue">The compare value to validate against.</param>
+        /// <param name="valueName">The name of the parameter being validated.</param>
+        /// <param name="comparer">The comparer to use to compare the specified values.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is greater than
+        /// <paramref name="compareValue"/>.</exception>
+        public static void IsLessThanOrEqualTo<T>(
+            T value,
+            T compareValue,
+            string valueName,
+            IComparer<T> comparer)
+        {
+            if (comparer?.Compare(value, compareValue) > 0)
             {
                 throw new ArgumentOutOfRangeException(
                     valueName,
@@ -190,6 +293,35 @@ namespace Natsnudasoft.NatsnudaLibrary
         }
 
         /// <summary>
+        /// Validates that the specified value is between a specified exclusive minimum and maximum
+        /// value.
+        /// </summary>
+        /// <typeparam name="T">The type of the value being validated.</typeparam>
+        /// <param name="value">The value to validate is between the specified minimum and maximum
+        /// value.</param>
+        /// <param name="minValue">The minimum value to validate against.</param>
+        /// <param name="maxValue">The maximum value to validate against.</param>
+        /// <param name="valueName">The name of the parameter being validated.</param>
+        /// <param name="comparer">The comparer to use to compare the specified values.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than or
+        /// equal to <paramref name="minValue"/>, or <paramref name="value"/> is greater than or
+        /// equal to <paramref name="maxValue"/>.</exception>
+        public static void IsBetween<T>(
+            T value,
+            T minValue,
+            T maxValue,
+            string valueName,
+            IComparer<T> comparer)
+        {
+            if (comparer?.Compare(value, minValue) <= 0 || comparer?.Compare(value, maxValue) >= 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    valueName,
+                    Invariant($"Value must be between {minValue} and {maxValue}."));
+            }
+        }
+
+        /// <summary>
         /// Validates that the specified value is between a specified minimum inclusive and maximum
         /// inclusive value.
         /// </summary>
@@ -206,6 +338,36 @@ namespace Natsnudasoft.NatsnudaLibrary
             where T : IComparable<T>
         {
             if (value?.CompareTo(minValue) < 0 || value?.CompareTo(maxValue) > 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    valueName,
+                    Invariant(
+                        $"Value must be between {minValue} inclusive and {maxValue} inclusive."));
+            }
+        }
+
+        /// <summary>
+        /// Validates that the specified value is between a specified minimum inclusive and maximum
+        /// inclusive value.
+        /// </summary>
+        /// <typeparam name="T">The type of the value being validated.</typeparam>
+        /// <param name="value">The value to validate is between the specified minimum and maximum
+        /// value.</param>
+        /// <param name="minValue">The minimum inclusive value to validate against.</param>
+        /// <param name="maxValue">The maximum inclusive value to validate against.</param>
+        /// <param name="valueName">The name of the parameter being validated.</param>
+        /// <param name="comparer">The comparer to use to compare the specified values.</param>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> is less than
+        /// <paramref name="minValue"/>, or <paramref name="value"/> is greater than
+        /// <paramref name="maxValue"/>.</exception>
+        public static void IsBetweenInclusive<T>(
+            T value,
+            T minValue,
+            T maxValue,
+            string valueName,
+            IComparer<T> comparer)
+        {
+            if (comparer?.Compare(value, minValue) < 0 || comparer?.Compare(value, maxValue) > 0)
             {
                 throw new ArgumentOutOfRangeException(
                     valueName,
