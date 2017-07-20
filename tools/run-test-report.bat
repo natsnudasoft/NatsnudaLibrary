@@ -1,7 +1,7 @@
 @echo off
 SET openCoverVersion=4.6.519
 SET xunitRunnerVersion=2.2.0
-SET reportGeneratorVersion=2.5.6
+SET reportGeneratorVersion=2.5.8
 SET coverallsVersion=1.3.4
 IF "%1"=="buildserver" (
     "%~dp0..\packages\OpenCover.%openCoverVersion%\tools\OpenCover.Console.exe" -register:user "-filter:+[*]* -[*Tests]*" -target:"%~dp0..\packages\xunit.runner.console.%xunitRunnerVersion%\tools\xunit.console.exe" -targetargs:"\"%~dp0..\test\unit\NatsnudasoftTests\bin\Release\Natsnudasoft.NatsnudasoftTests.dll\" -noshadow -appveyor" -excludebyattribute:*.ExcludeFromCodeCoverage* -excludebyfile:*Designer.cs -output:coverage.xml
