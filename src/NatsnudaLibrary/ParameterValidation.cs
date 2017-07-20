@@ -93,7 +93,7 @@ namespace Natsnudasoft.NatsnudaLibrary
         public static void IsGreaterThan<T>(T value, T compareValue, string valueName)
             where T : IComparable<T>
         {
-            if (value?.CompareTo(compareValue) <= 0)
+            if (ReferenceEquals(value, null) || value.CompareTo(compareValue) <= 0)
             {
                 throw new ArgumentOutOfRangeException(
                     valueName,
@@ -139,7 +139,8 @@ namespace Natsnudasoft.NatsnudaLibrary
         public static void IsLessThan<T>(T value, T compareValue, string valueName)
             where T : IComparable<T>
         {
-            if (value?.CompareTo(compareValue) >= 0)
+            if ((ReferenceEquals(value, null) && ReferenceEquals(compareValue, null))
+                || value?.CompareTo(compareValue) >= 0)
             {
                 throw new ArgumentOutOfRangeException(
                     valueName,
@@ -186,7 +187,8 @@ namespace Natsnudasoft.NatsnudaLibrary
         public static void IsGreaterThanOrEqualTo<T>(T value, T compareValue, string valueName)
             where T : IComparable<T>
         {
-            if (value?.CompareTo(compareValue) < 0)
+            if ((ReferenceEquals(value, null) && !ReferenceEquals(compareValue, null))
+                || value?.CompareTo(compareValue) < 0)
             {
                 throw new ArgumentOutOfRangeException(
                     valueName,
@@ -284,7 +286,9 @@ namespace Natsnudasoft.NatsnudaLibrary
         public static void IsBetween<T>(T value, T minValue, T maxValue, string valueName)
             where T : IComparable<T>
         {
-            if (value?.CompareTo(minValue) <= 0 || value?.CompareTo(maxValue) >= 0)
+            if (ReferenceEquals(value, null)
+                || value.CompareTo(minValue) <= 0
+                || value.CompareTo(maxValue) >= 0)
             {
                 throw new ArgumentOutOfRangeException(
                     valueName,
@@ -337,7 +341,12 @@ namespace Natsnudasoft.NatsnudaLibrary
         public static void IsBetweenInclusive<T>(T value, T minValue, T maxValue, string valueName)
             where T : IComparable<T>
         {
-            if (value?.CompareTo(minValue) < 0 || value?.CompareTo(maxValue) > 0)
+            var isNotInclusiveNull = ReferenceEquals(value, null)
+                && !ReferenceEquals(minValue, null)
+                && !ReferenceEquals(maxValue, null);
+            if (isNotInclusiveNull
+                || value?.CompareTo(minValue) < 0
+                || value?.CompareTo(maxValue) > 0)
             {
                 throw new ArgumentOutOfRangeException(
                     valueName,

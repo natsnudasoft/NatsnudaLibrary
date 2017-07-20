@@ -94,177 +94,31 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
         }
 
         [Theory]
-        [InlineData(10, false)]
-        [InlineData(15, false)]
-        [InlineData(13, true)]
-        [InlineData(15, true)]
-        public void IsGreaterThanWithDisallowedValueThrows(int value, bool useComparer)
-        {
-            const int CompareValue = 15;
-            const string ParamName = "testParam";
-            Exception ex;
-            if (useComparer)
-            {
-                var comparer = GetIntComparer();
-                ex = Record.Exception(
-                    () => SutAlias.IsGreaterThan(value, CompareValue, ParamName, comparer));
-            }
-            else
-            {
-                ex = Record.Exception(
-                    () => SutAlias.IsGreaterThan(value, CompareValue, ParamName));
-            }
-
-            Assert.IsType<ArgumentOutOfRangeException>(ex);
-            Assert.Equal(ParamName, ((ArgumentOutOfRangeException)ex).ParamName);
-        }
-
-        [Theory]
-        [InlineData("u", false)]
-        [InlineData(null, false)]
-        [InlineData("v", true)]
-        public void IsGreaterThanWithAllowedValueDoesNotThrow(string value, bool useComparer)
-        {
-            const string CompareValue = "t";
-            const string ParamName = "testParam";
-            Exception ex;
-            if (useComparer)
-            {
-                var comparer = GetStringComparer();
-                ex = Record.Exception(
-                    () => SutAlias.IsGreaterThan(value, CompareValue, ParamName, comparer));
-            }
-            else
-            {
-                ex = Record.Exception(
-                    () => SutAlias.IsGreaterThan(value, CompareValue, ParamName));
-            }
-
-            Assert.Null(ex);
-        }
-
-        [Theory]
-        [InlineData(40, false)]
-        [InlineData(30, false)]
-        [InlineData(35, true)]
-        [InlineData(30, true)]
-        public void IsLessThanWithDisallowedValueThrows(int value, bool useComparer)
-        {
-            const int CompareValue = 30;
-            const string ParamName = "testParam";
-            Exception ex;
-            if (useComparer)
-            {
-                var comparer = GetIntComparer();
-                ex = Record.Exception(
-                    () => SutAlias.IsLessThan(value, CompareValue, ParamName, comparer));
-            }
-            else
-            {
-                ex = Record.Exception(
-                    () => SutAlias.IsLessThan(value, CompareValue, ParamName));
-            }
-
-            Assert.IsType<ArgumentOutOfRangeException>(ex);
-            Assert.Equal(ParamName, ((ArgumentOutOfRangeException)ex).ParamName);
-        }
-
-        [Theory]
-        [InlineData("s", false)]
-        [InlineData(null, false)]
-        [InlineData("r", true)]
-        public void IsLessThanWithAllowedValueDoesNotThrow(string value, bool useComparer)
-        {
-            const string CompareValue = "t";
-            const string ParamName = "testParam";
-            Exception ex;
-            if (useComparer)
-            {
-                var comparer = GetStringComparer();
-                ex = Record.Exception(
-                    () => SutAlias.IsLessThan(value, CompareValue, ParamName, comparer));
-            }
-            else
-            {
-                ex = Record.Exception(
-                    () => SutAlias.IsLessThan(value, CompareValue, ParamName));
-            }
-
-            Assert.Null(ex);
-        }
-
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public void IsGreaterThanOrEqualToWithDisallowedValueThrows(bool useComparer)
-        {
-            const int Value = 10;
-            const int CompareValue = 15;
-            const string ParamName = "testParam";
-            Exception ex;
-            if (useComparer)
-            {
-                var comparer = GetIntComparer();
-                ex = Record.Exception(()
-                    => SutAlias.IsGreaterThanOrEqualTo(Value, CompareValue, ParamName, comparer));
-            }
-            else
-            {
-                ex = Record.Exception(
-                    () => SutAlias.IsGreaterThanOrEqualTo(Value, CompareValue, ParamName));
-            }
-
-            Assert.IsType<ArgumentOutOfRangeException>(ex);
-            Assert.Equal(ParamName, ((ArgumentOutOfRangeException)ex).ParamName);
-        }
-
-        [Theory]
-        [InlineData("t", false)]
-        [InlineData("u", false)]
-        [InlineData(null, false)]
-        [InlineData("t", true)]
-        [InlineData("v", true)]
-        public void IsGreaterThanOrEqualToWithAllowedValueDoesNotThrow(
+        [InlineData("t", "t", false)]
+        [InlineData("r", "t", false)]
+        [InlineData(null, "t", false)]
+        [InlineData(null, null, false)]
+        [InlineData("t", "t", true)]
+        [InlineData("s", "t", true)]
+        [InlineData(null, "t", true)]
+        [InlineData(null, null, true)]
+        public void IsGreaterThanWithDisallowedValueThrows(
             string value,
+            string compareValue,
             bool useComparer)
         {
-            const string CompareValue = "t";
             const string ParamName = "testParam";
             Exception ex;
             if (useComparer)
             {
                 var comparer = GetStringComparer();
-                ex = Record.Exception(()
-                    => SutAlias.IsGreaterThanOrEqualTo(value, CompareValue, ParamName, comparer));
+                ex = Record.Exception(
+                    () => SutAlias.IsGreaterThan(value, compareValue, ParamName, comparer));
             }
             else
             {
                 ex = Record.Exception(
-                    () => SutAlias.IsGreaterThanOrEqualTo(value, CompareValue, ParamName));
-            }
-
-            Assert.Null(ex);
-        }
-
-        [Theory]
-        [InlineData(false)]
-        [InlineData(true)]
-        public void IsLessThanOrEqualToWithDisallowedValueThrows(bool useComparer)
-        {
-            const int Value = 67;
-            const int CompareValue = 25;
-            const string ParamName = "testParam";
-            Exception ex;
-            if (useComparer)
-            {
-                var comparer = GetIntComparer();
-                ex = Record.Exception(
-                    () => SutAlias.IsLessThanOrEqualTo(Value, CompareValue, ParamName, comparer));
-            }
-            else
-            {
-                ex = Record.Exception(
-                    () => SutAlias.IsLessThanOrEqualTo(Value, CompareValue, ParamName));
+                    () => SutAlias.IsGreaterThan(value, compareValue, ParamName));
             }
 
             Assert.IsType<ArgumentOutOfRangeException>(ex);
@@ -272,56 +126,58 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
         }
 
         [Theory]
-        [InlineData("s", false)]
-        [InlineData("t", false)]
-        [InlineData(null, false)]
-        [InlineData("r", true)]
-        [InlineData("t", true)]
-        public void IsLessThanOrEqualToWithAllowedValueDoesNotThrow(string value, bool useComparer)
+        [InlineData("u", "t", false)]
+        [InlineData("u", null, false)]
+        [InlineData("v", "t", true)]
+        [InlineData("u", null, true)]
+        public void IsGreaterThanWithAllowedValueDoesNotThrow(
+            string value,
+            string compareValue,
+            bool useComparer)
         {
-            const string CompareValue = "t";
             const string ParamName = "testParam";
             Exception ex;
             if (useComparer)
             {
                 var comparer = GetStringComparer();
                 ex = Record.Exception(
-                    () => SutAlias.IsLessThanOrEqualTo(value, CompareValue, ParamName, comparer));
+                    () => SutAlias.IsGreaterThan(value, compareValue, ParamName, comparer));
             }
             else
             {
                 ex = Record.Exception(
-                    () => SutAlias.IsLessThanOrEqualTo(value, CompareValue, ParamName));
+                    () => SutAlias.IsGreaterThan(value, compareValue, ParamName));
             }
 
             Assert.Null(ex);
         }
 
         [Theory]
-        [InlineData(102, false)]
-        [InlineData(5, false)]
-        [InlineData(10, false)]
-        [InlineData(50, false)]
-        [InlineData(89, true)]
-        [InlineData(7, true)]
-        [InlineData(10, true)]
-        [InlineData(50, true)]
-        public void IsBetweenWithDisallowedValueThrows(int value, bool useComparer)
+        [InlineData("t", "t", false)]
+        [InlineData("u", "t", false)]
+        [InlineData("t", null, false)]
+        [InlineData(null, null, false)]
+        [InlineData("t", "t", true)]
+        [InlineData("u", "t", true)]
+        [InlineData("t", null, true)]
+        [InlineData(null, null, true)]
+        public void IsLessThanWithDisallowedValueThrows(
+            string value,
+            string compareValue,
+            bool useComparer)
         {
-            const int MinValue = 10;
-            const int MaxValue = 50;
             const string ParamName = "testParam";
             Exception ex;
             if (useComparer)
             {
-                var comparer = GetIntComparer();
+                var comparer = GetStringComparer();
                 ex = Record.Exception(
-                    () => SutAlias.IsBetween(value, MinValue, MaxValue, ParamName, comparer));
+                    () => SutAlias.IsLessThan(value, compareValue, ParamName, comparer));
             }
             else
             {
                 ex = Record.Exception(
-                    () => SutAlias.IsBetween(value, MinValue, MaxValue, ParamName));
+                    () => SutAlias.IsLessThan(value, compareValue, ParamName));
             }
 
             Assert.IsType<ArgumentOutOfRangeException>(ex);
@@ -329,51 +185,54 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
         }
 
         [Theory]
-        [InlineData("t", false)]
-        [InlineData(null, false)]
-        [InlineData("t", true)]
-        public void IsBetweenWithAllowedValueDoesNotThrow(string value, bool useComparer)
+        [InlineData("s", "t", false)]
+        [InlineData(null, "t", false)]
+        [InlineData("s", "t", true)]
+        [InlineData(null, "t", true)]
+        public void IsLessThanWithAllowedValueDoesNotThrow(
+            string value,
+            string compareValue,
+            bool useComparer)
         {
-            const string MinValue = "s";
-            const string MaxValue = "u";
             const string ParamName = "testParam";
             Exception ex;
             if (useComparer)
             {
                 var comparer = GetStringComparer();
                 ex = Record.Exception(
-                    () => SutAlias.IsBetween(value, MinValue, MaxValue, ParamName, comparer));
+                    () => SutAlias.IsLessThan(value, compareValue, ParamName, comparer));
             }
             else
             {
                 ex = Record.Exception(
-                    () => SutAlias.IsBetween(value, MinValue, MaxValue, ParamName));
+                    () => SutAlias.IsLessThan(value, compareValue, ParamName));
             }
 
             Assert.Null(ex);
         }
 
         [Theory]
-        [InlineData(102, false)]
-        [InlineData(5, false)]
-        [InlineData(80, true)]
-        [InlineData(6, true)]
-        public void IsBetweenInclusiveWithDisallowedValueThrows(int value, bool useComparer)
+        [InlineData("s", "t", false)]
+        [InlineData(null, "t", false)]
+        [InlineData("s", "t", true)]
+        [InlineData(null, "t", true)]
+        public void IsGreaterThanOrEqualToWithDisallowedValueThrows(
+            string value,
+            string compareValue,
+            bool useComparer)
         {
-            const int MinValue = 10;
-            const int MaxValue = 50;
             const string ParamName = "testParam";
             Exception ex;
             if (useComparer)
             {
-                var comparer = GetIntComparer();
+                var comparer = GetStringComparer();
                 ex = Record.Exception(()
-                    => SutAlias.IsBetweenInclusive(value, MinValue, MaxValue, ParamName, comparer));
+                    => SutAlias.IsGreaterThanOrEqualTo(value, compareValue, ParamName, comparer));
             }
             else
             {
                 ex = Record.Exception(
-                    () => SutAlias.IsBetweenInclusive(value, MinValue, MaxValue, ParamName));
+                    () => SutAlias.IsGreaterThanOrEqualTo(value, compareValue, ParamName));
             }
 
             Assert.IsType<ArgumentOutOfRangeException>(ex);
@@ -381,29 +240,220 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
         }
 
         [Theory]
-        [InlineData("s", false)]
-        [InlineData("t", false)]
-        [InlineData("u", false)]
-        [InlineData(null, false)]
-        [InlineData("s", true)]
-        [InlineData("t", true)]
-        [InlineData("u", true)]
-        public void IsBetweenInclusiveWithAllowedValueDoesNotThrow(string value, bool useComparer)
+        [InlineData("t", "t", false)]
+        [InlineData("u", "t", false)]
+        [InlineData("u", null, false)]
+        [InlineData(null, null, false)]
+        [InlineData("t", "t", true)]
+        [InlineData("u", "t", true)]
+        [InlineData("u", null, true)]
+        [InlineData(null, null, true)]
+        public void IsGreaterThanOrEqualToWithAllowedValueDoesNotThrow(
+            string value,
+            string compareValue,
+            bool useComparer)
         {
-            const string MinValue = "s";
-            const string MaxValue = "u";
             const string ParamName = "testParam";
             Exception ex;
             if (useComparer)
             {
                 var comparer = GetStringComparer();
                 ex = Record.Exception(()
-                    => SutAlias.IsBetweenInclusive(value, MinValue, MaxValue, ParamName, comparer));
+                    => SutAlias.IsGreaterThanOrEqualTo(value, compareValue, ParamName, comparer));
             }
             else
             {
                 ex = Record.Exception(
-                    () => SutAlias.IsBetweenInclusive(value, MinValue, MaxValue, ParamName));
+                    () => SutAlias.IsGreaterThanOrEqualTo(value, compareValue, ParamName));
+            }
+
+            Assert.Null(ex);
+        }
+
+        [Theory]
+        [InlineData("u", "t", false)]
+        [InlineData("u", null, false)]
+        [InlineData("u", "t", true)]
+        [InlineData("u", null, true)]
+        public void IsLessThanOrEqualToWithDisallowedValueThrows(
+            string value,
+            string compareValue,
+            bool useComparer)
+        {
+            const string ParamName = "testParam";
+            Exception ex;
+            if (useComparer)
+            {
+                var comparer = GetStringComparer();
+                ex = Record.Exception(
+                    () => SutAlias.IsLessThanOrEqualTo(value, compareValue, ParamName, comparer));
+            }
+            else
+            {
+                ex = Record.Exception(
+                    () => SutAlias.IsLessThanOrEqualTo(value, compareValue, ParamName));
+            }
+
+            Assert.IsType<ArgumentOutOfRangeException>(ex);
+            Assert.Equal(ParamName, ((ArgumentOutOfRangeException)ex).ParamName);
+        }
+
+        [Theory]
+        [InlineData("s", "t", false)]
+        [InlineData("t", "t", false)]
+        [InlineData(null, "t", false)]
+        [InlineData(null, null, false)]
+        [InlineData("s", "t", true)]
+        [InlineData("t", "t", true)]
+        [InlineData(null, "t", true)]
+        [InlineData(null, null, true)]
+        public void IsLessThanOrEqualToWithAllowedValueDoesNotThrow(
+            string value,
+            string compareValue,
+            bool useComparer)
+        {
+            const string ParamName = "testParam";
+            Exception ex;
+            if (useComparer)
+            {
+                var comparer = GetStringComparer();
+                ex = Record.Exception(
+                    () => SutAlias.IsLessThanOrEqualTo(value, compareValue, ParamName, comparer));
+            }
+            else
+            {
+                ex = Record.Exception(
+                    () => SutAlias.IsLessThanOrEqualTo(value, compareValue, ParamName));
+            }
+
+            Assert.Null(ex);
+        }
+
+        [Theory]
+        [InlineData("s", "s", "u", false)]
+        [InlineData("u", "s", "u", false)]
+        [InlineData("r", "s", "u", false)]
+        [InlineData("v", "s", "u", false)]
+        [InlineData(null, "s", "u", false)]
+        [InlineData(null, null, null, false)]
+        [InlineData("s", "s", "u", true)]
+        [InlineData("u", "s", "u", true)]
+        [InlineData("r", "s", "u", true)]
+        [InlineData("v", "s", "u", true)]
+        [InlineData(null, "s", "u", true)]
+        [InlineData(null, null, null, true)]
+        public void IsBetweenWithDisallowedValueThrows(
+            string value,
+            string minValue,
+            string maxValue,
+            bool useComparer)
+        {
+            const string ParamName = "testParam";
+            Exception ex;
+            if (useComparer)
+            {
+                var comparer = GetStringComparer();
+                ex = Record.Exception(
+                    () => SutAlias.IsBetween(value, minValue, maxValue, ParamName, comparer));
+            }
+            else
+            {
+                ex = Record.Exception(
+                    () => SutAlias.IsBetween(value, minValue, maxValue, ParamName));
+            }
+
+            Assert.IsType<ArgumentOutOfRangeException>(ex);
+            Assert.Equal(ParamName, ((ArgumentOutOfRangeException)ex).ParamName);
+        }
+
+        [Theory]
+        [InlineData("t", "s", "u", false)]
+        [InlineData("t", "s", "u", true)]
+        public void IsBetweenWithAllowedValueDoesNotThrow(
+            string value,
+            string minValue,
+            string maxValue,
+            bool useComparer)
+        {
+            const string ParamName = "testParam";
+            Exception ex;
+            if (useComparer)
+            {
+                var comparer = GetStringComparer();
+                ex = Record.Exception(
+                    () => SutAlias.IsBetween(value, minValue, maxValue, ParamName, comparer));
+            }
+            else
+            {
+                ex = Record.Exception(
+                    () => SutAlias.IsBetween(value, minValue, maxValue, ParamName));
+            }
+
+            Assert.Null(ex);
+        }
+
+        [Theory]
+        [InlineData("r", "s", "u", false)]
+        [InlineData("v", "s", "u", false)]
+        [InlineData(null, "s", "u", false)]
+        [InlineData("t", "t", null, false)]
+        [InlineData("r", "s", "u", true)]
+        [InlineData("v", "s", "u", true)]
+        [InlineData(null, "s", "u", true)]
+        [InlineData("t", "t", null, true)]
+        public void IsBetweenInclusiveWithDisallowedValueThrows(
+            string value,
+            string minValue,
+            string maxValue,
+            bool useComparer)
+        {
+            const string ParamName = "testParam";
+            Exception ex;
+            if (useComparer)
+            {
+                var comparer = GetStringComparer();
+                ex = Record.Exception(()
+                    => SutAlias.IsBetweenInclusive(value, minValue, maxValue, ParamName, comparer));
+            }
+            else
+            {
+                ex = Record.Exception(
+                    () => SutAlias.IsBetweenInclusive(value, minValue, maxValue, ParamName));
+            }
+
+            Assert.IsType<ArgumentOutOfRangeException>(ex);
+            Assert.Equal(ParamName, ((ArgumentOutOfRangeException)ex).ParamName);
+        }
+
+        [Theory]
+        [InlineData("s", "s", "u", false)]
+        [InlineData("t", "s", "u", false)]
+        [InlineData("u", "s", "u", false)]
+        [InlineData("t", null, "t", false)]
+        [InlineData(null, null, null, false)]
+        [InlineData("s", "s", "u", true)]
+        [InlineData("t", "s", "u", true)]
+        [InlineData("u", "s", "u", true)]
+        [InlineData("t", null, "t", true)]
+        [InlineData(null, null, null, true)]
+        public void IsBetweenInclusiveWithAllowedValueDoesNotThrow(
+            string value,
+            string minValue,
+            string maxValue,
+            bool useComparer)
+        {
+            const string ParamName = "testParam";
+            Exception ex;
+            if (useComparer)
+            {
+                var comparer = GetStringComparer();
+                ex = Record.Exception(()
+                    => SutAlias.IsBetweenInclusive(value, minValue, maxValue, ParamName, comparer));
+            }
+            else
+            {
+                ex = Record.Exception(
+                    () => SutAlias.IsBetweenInclusive(value, minValue, maxValue, ParamName));
             }
 
             Assert.Null(ex);
@@ -457,11 +507,6 @@ namespace Natsnudasoft.NatsnudasoftTests.NatsnudaLibrary
                 () => SutAlias.IsFalse(Value, Message, ParamName));
 
             Assert.Null(ex);
-        }
-
-        private static IComparer<int> GetIntComparer()
-        {
-            return Comparer<int>.Create((l, r) => l.CompareTo(r));
         }
 
         private static IComparer<string> GetStringComparer()
