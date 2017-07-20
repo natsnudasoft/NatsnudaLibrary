@@ -3,7 +3,6 @@
 [![AppVeyor master][AppVeyorImage]][AppVeyorUrl]
 [![Coveralls master][CoverallsImage]][CoverallsUrl]
 [![License][LicenceImage]][LicenceUrl]
-[![NatsnudaLibrary MyGet][NatsnudaLibraryMyGetImage]][NatsnudaLibraryMyGetUrl]
 
 ## NatsnudaLibrary [![NatsnudaLibrary NuGet][NatsnudaLibraryNuGetImage]][NatsnudaLibraryNuGetUrl]
 A collection of extensions/helper libraries for general API/application development.
@@ -21,7 +20,5 @@ A collection of extensions for unit testing projects using xunit and AutoFixture
 [NatsnudaLibraryNuGetUrl]: https://www.nuget.org/packages/NatsnudaLibrary
 [TestExtensionsNuGetImage]: https://img.shields.io/nuget/v/NatsnudaLibrary.TestExtensions.svg?style=flat-square
 [TestExtensionsNuGetUrl]: https://www.nuget.org/packages/NatsnudaLibrary.TestExtensions
-[NatsnudaLibraryMyGetImage]: https://img.shields.io/myget/natsnudalibrary/v/NatsnudaLibrary.svg?style=flat-square
-[NatsnudaLibraryMyGetUrl]: https://www.myget.org/gallery/natsnudalibrary
 [LicenceImage]: https://img.shields.io/github/license/natsnudasoft/NatsnudaLibrary.svg?maxAge=2592000&style=flat-square
 [LicenceUrl]: http://www.apache.org/licenses/LICENSE-2.0

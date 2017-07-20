@@ -50,15 +50,6 @@
       on:
         appveyor_repo_tag: true
     - provider: NuGet
-      server: https://www.myget.org/F/natsnudalibrary/api/v2/package
-      api_key:
-        secure: bagqpjy5GqBb4b3uF2sJ3l13IkKA3jiMvcd1TE6k//2Mp7TyWwuNO09I8oF5Amko
-      skip_symbols: false
-      symbol_server: https://www.myget.org/F/natsnudalibrary/symbols/api/v2/package
-      artifact: /.*\.nupkg/
-      on:
-        appveyor_repo_tag: true
-    - provider: NuGet
       api_key:
         secure: F2PKDPVrMV/KTcJ6b3U0ADkG/naA2h8TnZySyuEAUAYSHbLKfUdue+SvqhZavPrp
       skip_symbols: true
