@@ -20,9 +20,9 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
     using System.Linq;
     using System.Reflection;
     using System.Runtime.CompilerServices;
-    using NatsnudaLibrary;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
+    using Natsnudasoft.NatsnudaLibrary;
 
     /// <summary>
     /// Provides methods to extend the functionality of the
@@ -31,7 +31,7 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
     internal class GuardClauseExtensions : IGuardClauseExtensions
     {
         private static readonly Type TaskReturnType = typeof(GuardClauseAssertion).Assembly.GetType(
-            "Ploeh.AutoFixture.Idioms.GuardClauseAssertion+TaskReturnMethodInvokeCommand");
+            "AutoFixture.Idioms.GuardClauseAssertion+TaskReturnMethodInvokeCommand");
 
         private readonly int asyncTaskTimeout;
 

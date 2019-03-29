@@ -18,9 +18,9 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
 {
     using System;
     using System.Collections.Generic;
-    using NatsnudaLibrary;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
+    using Natsnudasoft.NatsnudaLibrary;
     using static System.FormattableString;
 
     /// <summary>

@@ -20,8 +20,8 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
 
     /// <summary>
     /// Encapsulates a unit test that verifies whether an implementation of an Equals method is

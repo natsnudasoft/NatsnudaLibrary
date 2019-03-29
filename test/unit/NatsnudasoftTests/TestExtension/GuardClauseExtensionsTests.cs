@@ -20,12 +20,12 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using AutoFixture;
+    using AutoFixture.AutoMoq;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
     using Moq;
     using Natsnudasoft.NatsnudaLibrary.TestExtensions;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.AutoMoq;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
     using Xunit;
     using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.GuardClauseExtensions;
 
@@ -33,7 +33,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     {
         private static readonly Type SutType = typeof(SutAlias);
         private static readonly Type TaskReturnType = typeof(GuardClauseAssertion).Assembly.GetType(
-            "Ploeh.AutoFixture.Idioms.GuardClauseAssertion+TaskReturnMethodInvokeCommand");
+            "AutoFixture.Idioms.GuardClauseAssertion+TaskReturnMethodInvokeCommand");
 
         [Fact]
         public void ConstructorDoesNotThrow()

@@ -19,12 +19,12 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using System;
     using System.Linq;
     using System.Reflection;
+    using AutoFixture;
+    using AutoFixture.AutoMoq;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
     using Moq;
     using Natsnudasoft.NatsnudaLibrary.TestExtensions;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.AutoMoq;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
     using Xunit;
 
     public sealed class ExceptionBehaviorExpectationTests

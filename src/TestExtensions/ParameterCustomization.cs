@@ -17,8 +17,8 @@
 namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
 {
     using System;
-    using NatsnudaLibrary;
-    using Ploeh.AutoFixture;
+    using AutoFixture;
+    using Natsnudasoft.NatsnudaLibrary;
 
     /// <summary>
     /// Provides a customization that will apply a known value to a parameter in a constructor.

@@ -17,9 +17,9 @@
 namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
 {
     using System;
-    using NatsnudaLibrary;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
+    using Natsnudasoft.NatsnudaLibrary;
 
     /// <summary>
     /// Encapsulates expectations about the behaviour of a method or constructor when it's invoked

@@ -1,16 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatsnudaLibrary", "src\NatsnudaLibrary\NatsnudaLibrary.csproj", "{9B0AD511-AF08-4A36-9A68-EDCBF2EDF605}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NatsnudaLibrary", "src\NatsnudaLibrary\NatsnudaLibrary.csproj", "{83F03E55-218E-43DD-B329-0F992844E323}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestExtensions", "src\TestExtensions\TestExtensions.csproj", "{26294A1F-6DAE-4456-BACA-7B6E9D380AE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestExtensions", "src\TestExtensions\TestExtensions.csproj", "{7ABDA931-C300-4164-9F0A-5E00F1945E7C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code Analysis", "Code Analysis", "{AD33630F-D030-45A2-9EAC-6DF7EAE10074}"
 	ProjectSection(SolutionItems) = preProject
 		_CodeAnalysis.docx = _CodeAnalysis.docx
-		CustomDictionary.xml = CustomDictionary.xml
 		Menees.Analyzers.Settings.xml = Menees.Analyzers.Settings.xml
 		src\NatsnudaLibrary\NatsnudaLibrary.ruleset = src\NatsnudaLibrary\NatsnudaLibrary.ruleset
 		test\unit\NatsnudasoftTests\NatsnudasoftTests.ruleset = test\unit\NatsnudasoftTests\NatsnudasoftTests.ruleset
@@ -27,7 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit Tests", "Unit Tests", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Versioning", "Versioning", "{B505975C-8CB3-4C3F-9EE6-46B612ECD767}"
 	ProjectSection(SolutionItems) = preProject
-		AssemblyInfoCommon.cs = AssemblyInfoCommon.cs
 		CommonSuppressions.cs = CommonSuppressions.cs
 	EndProjectSection
 EndProject
@@ -36,19 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "NatsnudasoftDocs", "docs\Natsnudasoft\NatsnudasoftDocs.shfbproj", "{82C2FB67-A2A2-4D68-87B7-EEFB7C31B212}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9B0AD511-AF08-4A36-9A68-EDCBF2EDF605} = {9B0AD511-AF08-4A36-9A68-EDCBF2EDF605}
-		{26294A1F-6DAE-4456-BACA-7B6E9D380AE7} = {26294A1F-6DAE-4456-BACA-7B6E9D380AE7}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatsnudasoftTests", "test\unit\NatsnudasoftTests\NatsnudasoftTests.csproj", "{0213E1F4-5ED1-455F-87B5-858B5C61821E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{6DEA4F5F-127A-496D-B91F-C51EF336E30E}"
-	ProjectSection(SolutionItems) = preProject
-		src\NatsnudaLibrary\NatsnudaLibrary.nuspec = src\NatsnudaLibrary\NatsnudaLibrary.nuspec
-		src\TestExtensions\TestExtensions.nuspec = src\TestExtensions\TestExtensions.nuspec
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NatsnudasoftTests", "test\unit\NatsnudasoftTests\NatsnudasoftTests.csproj", "{7BD69B3D-EE2A-4B00-BAC5-B15FEDE3A218}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,28 +42,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9B0AD511-AF08-4A36-9A68-EDCBF2EDF605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B0AD511-AF08-4A36-9A68-EDCBF2EDF605}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B0AD511-AF08-4A36-9A68-EDCBF2EDF605}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B0AD511-AF08-4A36-9A68-EDCBF2EDF605}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26294A1F-6DAE-4456-BACA-7B6E9D380AE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26294A1F-6DAE-4456-BACA-7B6E9D380AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26294A1F-6DAE-4456-BACA-7B6E9D380AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26294A1F-6DAE-4456-BACA-7B6E9D380AE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82C2FB67-A2A2-4D68-87B7-EEFB7C31B212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82C2FB67-A2A2-4D68-87B7-EEFB7C31B212}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82C2FB67-A2A2-4D68-87B7-EEFB7C31B212}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82C2FB67-A2A2-4D68-87B7-EEFB7C31B212}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0213E1F4-5ED1-455F-87B5-858B5C61821E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0213E1F4-5ED1-455F-87B5-858B5C61821E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0213E1F4-5ED1-455F-87B5-858B5C61821E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0213E1F4-5ED1-455F-87B5-858B5C61821E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83F03E55-218E-43DD-B329-0F992844E323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83F03E55-218E-43DD-B329-0F992844E323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83F03E55-218E-43DD-B329-0F992844E323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83F03E55-218E-43DD-B329-0F992844E323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ABDA931-C300-4164-9F0A-5E00F1945E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ABDA931-C300-4164-9F0A-5E00F1945E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ABDA931-C300-4164-9F0A-5E00F1945E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ABDA931-C300-4164-9F0A-5E00F1945E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BD69B3D-EE2A-4B00-BAC5-B15FEDE3A218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BD69B3D-EE2A-4B00-BAC5-B15FEDE3A218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD69B3D-EE2A-4B00-BAC5-B15FEDE3A218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BD69B3D-EE2A-4B00-BAC5-B15FEDE3A218}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{82C2FB67-A2A2-4D68-87B7-EEFB7C31B212} = {AB7F6299-1645-4FE4-9AB4-6DA3101451CE}
-		{0213E1F4-5ED1-455F-87B5-858B5C61821E} = {4208DA10-BEA1-4B08-A573-99AC2F8C29AC}
+		{7BD69B3D-EE2A-4B00-BAC5-B15FEDE3A218} = {4208DA10-BEA1-4B08-A573-99AC2F8C29AC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45706E98-16BE-4C4B-A709-0130B6E99FEE}
 	EndGlobalSection
 EndGlobal

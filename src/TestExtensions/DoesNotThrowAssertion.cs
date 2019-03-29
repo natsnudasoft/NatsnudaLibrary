@@ -20,9 +20,9 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using NatsnudaLibrary;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
+    using Natsnudasoft.NatsnudaLibrary;
 
     /// <summary>
     /// Encapsulates a unit test that verifies a method or constructor does not throw any

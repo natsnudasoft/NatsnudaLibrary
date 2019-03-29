@@ -18,8 +18,8 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
 {
     using System;
     using System.Collections.Generic;
-    using NatsnudaLibrary;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture.Kernel;
+    using Natsnudasoft.NatsnudaLibrary;
 
     /// <summary>
     /// Provides a constructor query that chooses a constructor that has the specified types in the

@@ -18,9 +18,9 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 {
     using System;
     using System.Linq;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
     using Xunit;
     using SutAlias =
         Natsnudasoft.NatsnudaLibrary.TestExtensions.ParameterTypeFavoringConstructorQuery;

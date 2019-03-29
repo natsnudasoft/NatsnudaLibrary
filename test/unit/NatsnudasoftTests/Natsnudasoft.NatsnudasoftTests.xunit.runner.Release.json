@@ -1,0 +1,6 @@
+﻿{
+  "@jdt.replace": {
+    "@jdt.path": "$.methodDisplay",
+    "@jdt.value": "classAndMethod"
+  }
+}

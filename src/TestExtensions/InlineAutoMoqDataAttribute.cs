@@ -17,7 +17,7 @@
 namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
 {
     using System;
-    using Ploeh.AutoFixture.Xunit2;
+    using AutoFixture.Xunit2;
 
     /// <summary>
     /// Provides a data source for a data theory, with the data coming from inline values combined

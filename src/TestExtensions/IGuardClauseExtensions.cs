@@ -18,8 +18,8 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
 {
     using System;
     using System.Reflection;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
 
     /// <summary>
     /// Provides methods to extend the functionality of the

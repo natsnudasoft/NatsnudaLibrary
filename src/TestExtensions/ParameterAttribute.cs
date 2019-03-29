@@ -18,9 +18,9 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
 {
     using System;
     using System.Reflection;
-    using NatsnudaLibrary;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.Xunit2;
+    using AutoFixture;
+    using AutoFixture.Xunit2;
+    using Natsnudasoft.NatsnudaLibrary;
 
     /// <summary>
     /// Provides a customization attribute that will apply a known value to a parameter in a

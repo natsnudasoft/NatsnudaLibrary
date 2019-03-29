@@ -17,8 +17,8 @@
 namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 {
     using System;
+    using AutoFixture.Idioms;
     using Natsnudasoft.NatsnudaLibrary.TestExtensions;
-    using Ploeh.AutoFixture.Idioms;
     using Xunit;
     using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.EqualsOverrideTheory;
 

@@ -18,8 +18,8 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
 {
     using System;
     using System.Reflection;
-    using NatsnudaLibrary;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture.Kernel;
+    using Natsnudasoft.NatsnudaLibrary;
 
     /// <summary>
     /// Provides a specimen builder that will apply a known value to a parameter in a constructor.

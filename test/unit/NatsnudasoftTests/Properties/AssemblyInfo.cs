@@ -15,15 +15,7 @@
 // </copyright>
 
 using System;
-using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: CLSCompliant(false)]
-[assembly: AssemblyTitle("Natsnudasoft.NatsnudasoftTests")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyProduct("NatsnudasoftTests")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: Guid("0213e1f4-5ed1-455f-87b5-858b5c61821e")]

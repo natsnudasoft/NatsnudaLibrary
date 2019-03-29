@@ -18,12 +18,12 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 {
     using System;
     using System.Collections.Generic;
-    using Helper;
+    using AutoFixture;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
     using Moq;
     using Natsnudasoft.NatsnudaLibrary.TestExtensions;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using Natsnudasoft.NatsnudasoftTests.Helper;
     using Xunit;
     using SutAlias =
         Natsnudasoft.NatsnudaLibrary.TestExtensions.EqualsOverrideOtherSuccessiveAssertion;

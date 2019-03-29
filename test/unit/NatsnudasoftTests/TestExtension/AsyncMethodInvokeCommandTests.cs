@@ -22,10 +22,10 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using AutoFixture;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
     using Moq;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
     using Xunit;
     using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.AsyncMethodInvokeCommand;
 
