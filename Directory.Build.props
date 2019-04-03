@@ -13,11 +13,9 @@
   <PropertyGroup Condition="'$(Configuration)'=='Release'">
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(APPVEYOR)' == 'True'">
-    <ReportUnitTests>True</ReportUnitTests>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(APPVEYOR)' == 'True' And '$(APPVEYOR_PULL_REQUEST_NUMBER)' == ''">
     <DefineConstants>$(DefineConstants);StrongNameSign</DefineConstants>
+    <ReportUnitTests>True</ReportUnitTests>
     <StrongNameSign>True</StrongNameSign>
   </PropertyGroup>
   <PropertyGroup Condition="'$(StrongNameSign)' == 'True'">
