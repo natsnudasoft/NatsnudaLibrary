@@ -71,6 +71,10 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         /// <param name="command">The command whose behaviour must be examined.</param>
         /// <exception cref="ArgumentNullException"><paramref name="command"/> is
         /// <see langword="null"/>.</exception>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Exception is propagated by guard clause.")]
         public void Verify(IGuardClauseCommand command)
         {
             ParameterValidation.IsNotNull(command, nameof(command));

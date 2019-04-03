@@ -89,7 +89,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         {
             var sutMock = new Mock<EqualsOverrideAssertion>(new Mock<ISpecimenBuilder>().Object)
             {
-                CallBase = true
+                CallBase = true,
             };
             var sut = sutMock.Object;
 
@@ -105,7 +105,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
         {
             var sutMock = new Mock<EqualsOverrideAssertion>(new Mock<ISpecimenBuilder>().Object)
             {
-                CallBase = true
+                CallBase = true,
             };
             var sut = sutMock.Object;
 

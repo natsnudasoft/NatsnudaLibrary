@@ -108,7 +108,7 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
             var parameterInfo = request as ParameterInfo;
             if (parameterInfo != null &&
                 parameterInfo.Member.DeclaringType == this.DeclaringType &&
-                parameterInfo.ParameterType.IsAssignableFrom(this.SpecimenValue.GetType()) &&
+                parameterInfo.ParameterType.IsInstanceOfType(this.SpecimenValue) &&
                 parameterInfo.Name == this.ParameterName)
             {
                 specimen = this.SpecimenValue;

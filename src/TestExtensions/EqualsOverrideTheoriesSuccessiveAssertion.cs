@@ -97,8 +97,7 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
                         methodInfo.ReflectedType.Name,
                         i));
                 }
-                else if (methodInfo.GetParameters().Single().ParameterType
-                    .IsAssignableFrom(right.GetType()))
+                else if (methodInfo.GetParameters().Single().ParameterType.IsInstanceOfType(right))
                 {
                     var expectedResult = equalsOverrideTheory.ExpectedResult;
                     var resultsMatchExpected = Enumerable.Range(0, this.SuccessiveCount)

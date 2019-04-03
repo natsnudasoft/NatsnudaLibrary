@@ -85,7 +85,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var ex = Record.Exception(() => new ExceptionBehaviorExpectation<Exception>(
                 new Mock<ISpecimenBuilder>().Object,
                 fixture.Create<string>(),
-                new object[] { }));
+                Array.Empty<object>()));
 
             Assert.IsType<ArgumentException>(ex);
         }
@@ -100,7 +100,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 new Mock<ISpecimenBuilder>().Object,
                 new Mock<IGuardClauseExtensions>().Object,
                 fixture.Create<string>(),
-                new object[] { }));
+                Array.Empty<object>()));
 
             Assert.IsType<ArgumentException>(ex);
         }

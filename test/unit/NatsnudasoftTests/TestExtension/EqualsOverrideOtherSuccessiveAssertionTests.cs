@@ -65,7 +65,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var fixture = new Fixture();
             var verifyHelperMock = new Mock<EqualsOverrideAssertionVerifyHelper>(false, true, false)
             {
-                CallBase = true
+                CallBase = true,
             };
             fixture.Inject(verifyHelperMock.Object);
             var sut = fixture.Create<SutAlias>();
@@ -88,7 +88,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 new EqualsOverrideAssertionVerifyHelper(
                     false,
                     false,
-                    () => equalsResultQueue.Dequeue())
+                    () => equalsResultQueue.Dequeue()),
             });
             fixture.Register(() => verifyHelperQueue.Dequeue());
             var sut = fixture.Create<SutAlias>();
@@ -106,12 +106,12 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var fixture = new Fixture();
             var verifyHelperMock = new Mock<EqualsOverrideAssertionVerifyHelper>(false, false, true)
             {
-                CallBase = true
+                CallBase = true,
             };
             var verifyHelperQueue = new Queue<EqualsOverrideAssertionVerifyHelper>(new[]
             {
                 verifyHelperMock.Object,
-                new EqualsOverrideAssertionVerifyHelper(false, false, true)
+                new EqualsOverrideAssertionVerifyHelper(false, false, true),
             });
             fixture.Register(() => verifyHelperQueue.Dequeue());
             var sut = fixture.Create<SutAlias>();

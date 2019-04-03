@@ -64,7 +64,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 
             var verifyHelperMock = new Mock<EqualsOverrideAssertionVerifyHelper>(false, true, false)
             {
-                CallBase = true
+                CallBase = true,
             };
             fixture.Inject(verifyHelperMock.Object);
             var sut = fixture.Create<SutAlias>();
@@ -97,7 +97,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 
             var verifyHelperMock = new Mock<EqualsOverrideAssertionVerifyHelper>(false, true, false)
             {
-                CallBase = true
+                CallBase = true,
             };
             fixture.Inject(verifyHelperMock.Object);
             var sut = fixture.Create<SutAlias>();
