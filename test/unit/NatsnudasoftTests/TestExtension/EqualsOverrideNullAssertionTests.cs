@@ -17,12 +17,12 @@
 namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 {
     using System;
-    using Helper;
+    using AutoFixture;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
     using Moq;
     using Natsnudasoft.NatsnudaLibrary.TestExtensions;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using Natsnudasoft.NatsnudasoftTests.Helper;
     using Xunit;
     using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.EqualsOverrideNullAssertion;
 
@@ -64,7 +64,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var fixture = new Fixture();
             var verifyHelperMock = new Mock<EqualsOverrideAssertionVerifyHelper>(false, true, false)
             {
-                CallBase = true
+                CallBase = true,
             };
             fixture.Inject(verifyHelperMock.Object);
             var sut = fixture.Create<SutAlias>();
@@ -96,7 +96,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var fixture = new Fixture();
             var verifyHelperMock = new Mock<EqualsOverrideAssertionVerifyHelper>(false, true, false)
             {
-                CallBase = true
+                CallBase = true,
             };
             fixture.Inject(verifyHelperMock.Object);
             var sut = fixture.Create<SutAlias>();

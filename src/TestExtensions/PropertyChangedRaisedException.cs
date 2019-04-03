@@ -30,7 +30,12 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
     [Serializable]
     public sealed class PropertyChangedRaisedException : Exception
     {
+        private const string PropertyInfoTypeName = nameof(PropertyInfo) + "TypeName";
+        private const string PropertyInfoMemberName = nameof(PropertyInfo) + "MemberName";
         private const string DefaultMessage = "A property did not raise the PropertyChanged event.";
+
+        [NonSerialized]
+        private readonly PropertyInfo propertyInfo;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyChangedRaisedException"/> class.
@@ -75,7 +80,7 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         public PropertyChangedRaisedException(PropertyInfo propertyInfo)
             : base(CreateMessage(propertyInfo))
         {
-            this.PropertyInfo = propertyInfo;
+            this.propertyInfo = propertyInfo;
         }
 
         /// <summary>
@@ -90,29 +95,35 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
             Exception innerException)
             : base(CreateMessage(propertyInfo), innerException)
         {
-            this.PropertyInfo = propertyInfo;
+            this.propertyInfo = propertyInfo;
         }
 
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         private PropertyChangedRaisedException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
-            this.PropertyInfo = (PropertyInfo)info
-                .GetValue(nameof(this.PropertyInfo), typeof(PropertyInfo));
+            var typeName = info.GetString(PropertyInfoTypeName);
+            var memberName = info.GetString(PropertyInfoMemberName);
+            const BindingFlags bindingFlags = BindingFlags.Static |
+                BindingFlags.Instance |
+                BindingFlags.Public |
+                BindingFlags.NonPublic;
+            this.propertyInfo = Type.GetType(typeName).GetProperty(memberName, bindingFlags);
         }
 
         /// <summary>
         /// Gets the property information for the property that did correctly raise the
         /// PropertyChanged event.
         /// </summary>
-        public PropertyInfo PropertyInfo { get; }
+        public PropertyInfo PropertyInfo => this.propertyInfo;
 
         /// <inheritdoc/>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             base.GetObjectData(info, context);
-            info.AddValue(nameof(this.PropertyInfo), this.PropertyInfo);
+            info.AddValue(PropertyInfoTypeName, this.PropertyInfo.DeclaringType.FullName);
+            info.AddValue(PropertyInfoMemberName, this.PropertyInfo.Name);
         }
 
         private static string CreateMessage(PropertyInfo propertyInfo)

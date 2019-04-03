@@ -18,8 +18,8 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
 {
     using System;
     using System.Reflection;
-    using NatsnudaLibrary;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture.Kernel;
+    using Natsnudasoft.NatsnudaLibrary;
 
     /// <summary>
     /// Provides a specimen builder that will apply a known value to a parameter in a constructor.
@@ -108,7 +108,7 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
             var parameterInfo = request as ParameterInfo;
             if (parameterInfo != null &&
                 parameterInfo.Member.DeclaringType == this.DeclaringType &&
-                parameterInfo.ParameterType.IsAssignableFrom(this.SpecimenValue.GetType()) &&
+                parameterInfo.ParameterType.IsInstanceOfType(this.SpecimenValue) &&
                 parameterInfo.Name == this.ParameterName)
             {
                 specimen = this.SpecimenValue;

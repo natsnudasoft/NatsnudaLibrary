@@ -19,12 +19,12 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using System;
     using System.Linq;
     using System.Reflection;
+    using AutoFixture;
+    using AutoFixture.AutoMoq;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
     using Moq;
     using Natsnudasoft.NatsnudaLibrary.TestExtensions;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.AutoMoq;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
     using Xunit;
 
     public sealed class ExceptionBehaviorExpectationTests
@@ -85,7 +85,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var ex = Record.Exception(() => new ExceptionBehaviorExpectation<Exception>(
                 new Mock<ISpecimenBuilder>().Object,
                 fixture.Create<string>(),
-                new object[] { }));
+                Array.Empty<object>()));
 
             Assert.IsType<ArgumentException>(ex);
         }
@@ -100,7 +100,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
                 new Mock<ISpecimenBuilder>().Object,
                 new Mock<IGuardClauseExtensions>().Object,
                 fixture.Create<string>(),
-                new object[] { }));
+                Array.Empty<object>()));
 
             Assert.IsType<ArgumentException>(ex);
         }

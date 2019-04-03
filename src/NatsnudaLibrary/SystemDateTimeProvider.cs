@@ -27,9 +27,17 @@ namespace Natsnudasoft.NatsnudaLibrary
     public class SystemDateTimeProvider : IDateTimeProvider
     {
         /// <inheritdoc/>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Menees.Analyzers",
+            "MEN013:UseUTCTime",
+            Justification = "Matching existing implementation.")]
         public DateTime Now => DateTime.Now;
 
         /// <inheritdoc/>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Menees.Analyzers",
+            "MEN013:UseUTCTime",
+            Justification = "Matching existing implementation.")]
         public DateTime Today => DateTime.Today;
 
         /// <inheritdoc/>

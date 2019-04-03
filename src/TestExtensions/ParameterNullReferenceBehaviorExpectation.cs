@@ -17,9 +17,9 @@
 namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
 {
     using System;
-    using NatsnudaLibrary;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
+    using Natsnudasoft.NatsnudaLibrary;
 
     /// <summary>
     /// Encapsulates expectations about the behaviour of a method or constructor when it's invoked
@@ -71,6 +71,10 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
         /// <param name="command">The command whose behaviour must be examined.</param>
         /// <exception cref="ArgumentNullException"><paramref name="command"/> is
         /// <see langword="null"/>.</exception>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design",
+            "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Exception is propagated by guard clause.")]
         public void Verify(IGuardClauseCommand command)
         {
             ParameterValidation.IsNotNull(command, nameof(command));

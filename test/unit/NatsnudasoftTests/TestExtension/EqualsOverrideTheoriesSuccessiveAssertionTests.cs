@@ -18,12 +18,12 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 {
     using System;
     using System.Collections.Generic;
-    using Helper;
+    using AutoFixture;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
     using Moq;
     using Natsnudasoft.NatsnudaLibrary.TestExtensions;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using Natsnudasoft.NatsnudasoftTests.Helper;
     using Xunit;
     using SutAlias =
         Natsnudasoft.NatsnudaLibrary.TestExtensions.EqualsOverrideTheoriesSuccessiveAssertion;
@@ -85,7 +85,7 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var fixture = new Fixture();
             var verifyHelperMock = new Mock<EqualsOverrideAssertionVerifyHelper>(false, true, false)
             {
-                CallBase = true
+                CallBase = true,
             };
             var equalsOverrideTheory = new EqualsOverrideTheory(
                 verifyHelperMock.Object,
@@ -131,12 +131,12 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
             var fixture = new Fixture();
             var verifyHelperMock = new Mock<EqualsOverrideAssertionVerifyHelper>(false, false, true)
             {
-                CallBase = true
+                CallBase = true,
             };
             var verifyHelperQueue = new Queue<EqualsOverrideAssertionVerifyHelper>(new[]
             {
                 verifyHelperMock.Object,
-                new EqualsOverrideAssertionVerifyHelper(false, false, true)
+                new EqualsOverrideAssertionVerifyHelper(false, false, true),
             });
             fixture.Register(() => verifyHelperQueue.Dequeue());
             var equalsOverrideTheory = new EqualsOverrideTheory(

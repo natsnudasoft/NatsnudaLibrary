@@ -19,8 +19,8 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
     using System;
     using System.Linq;
     using System.Reflection;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
 
     /// <summary>
     /// Provides an abstract base class for encapsulating unit tests that verify whether an

@@ -26,6 +26,10 @@ namespace Natsnudasoft.NatsnudaLibrary
         /// </summary>
         /// <returns>A 32-bit signed integer that is greater than or equal to 0 and less than
         /// <see cref="int.MaxValue"/>.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Naming",
+            "CA1716:IdentifiersShouldNotMatchKeywords",
+            Justification = "Matching existing interface with reserved language keyword.")]
         int Next();
 
         /// <summary>
@@ -35,6 +39,10 @@ namespace Natsnudasoft.NatsnudaLibrary
         /// </param>
         /// <returns>A 32-bit signed integer that is greater than or equal to 0, and less than
         /// <paramref name="maxValue"/>.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Naming",
+            "CA1716:IdentifiersShouldNotMatchKeywords",
+            Justification = "Matching existing interface with reserved language keyword.")]
         int Next(int maxValue);
 
         /// <summary>
@@ -46,6 +54,10 @@ namespace Natsnudasoft.NatsnudaLibrary
         /// </param>
         /// <returns>A 32-bit signed integer that is greater than or equal to
         /// <paramref name="minValue"/>, and less than <paramref name="maxValue"/>.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Naming",
+            "CA1716:IdentifiersShouldNotMatchKeywords",
+            Justification = "Matching existing interface with reserved language keyword.")]
         int Next(int minValue, int maxValue);
 
         /// <summary>

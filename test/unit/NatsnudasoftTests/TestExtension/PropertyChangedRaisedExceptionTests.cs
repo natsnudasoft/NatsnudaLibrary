@@ -19,9 +19,9 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
     using System;
     using System.IO;
     using System.Runtime.Serialization.Formatters.Binary;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.SemanticComparison.Fluent;
+    using AutoFixture;
+    using AutoFixture.Idioms;
+    using SemanticComparison.Fluent;
     using Xunit;
     using SutAlias = Natsnudasoft.NatsnudaLibrary.TestExtensions.PropertyChangedRaisedException;
 

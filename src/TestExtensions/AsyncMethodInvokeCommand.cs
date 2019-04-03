@@ -21,8 +21,8 @@ namespace Natsnudasoft.NatsnudaLibrary.TestExtensions
     using System.Runtime.ExceptionServices;
     using System.Threading;
     using System.Threading.Tasks;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
 
     /// <summary>
     /// Extends the <see cref="MethodInvokeCommand"/> with a class capable of handling async

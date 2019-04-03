@@ -18,9 +18,9 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 {
     using System;
     using System.Linq;
-    using Ploeh.AutoFixture;
-    using Ploeh.AutoFixture.Idioms;
-    using Ploeh.AutoFixture.Kernel;
+    using AutoFixture;
+    using AutoFixture.Idioms;
+    using AutoFixture.Kernel;
     using Xunit;
     using SutAlias =
         Natsnudasoft.NatsnudaLibrary.TestExtensions.ParameterTypeFavoringConstructorQuery;
@@ -78,11 +78,15 @@ namespace Natsnudasoft.NatsnudasoftTests.TestExtension
 
             var actual = sut.SelectMethods(typeof(SelectConstructorTestClass));
 
-            Assert.Equal(1, actual.Count());
+            Assert.Single(actual);
             Assert.IsType<ConstructorMethod>(actual.First());
             Assert.Equal(expected, ((ConstructorMethod)actual.First()).Constructor);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Performance",
+            "CA1812:AvoidUninstantiatedInternalClasses",
+            Justification = "Class is used via reflection.")]
         private sealed class SelectConstructorTestClass
         {
             public SelectConstructorTestClass(int intParameter)
