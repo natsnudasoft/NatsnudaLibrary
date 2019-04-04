@@ -69,6 +69,9 @@
     <ProjectReference Include="..\NatsnudaLibrary\NatsnudaLibrary.csproj" />
   </ItemGroup>
   <Target Name="ReplaceInheritdoc" AfterTargets="Build" Condition="'$(TargetFramework)' != ''">
-    <Exec Command='"$(PkgInheritdocInliner)\tools\InheritdocInliner.exe" "$(OutputPath)Natsnudasoft.NatsnudaLibrary.xml"' />
+    <Exec
+      Command='"$(PkgInheritdocInliner)\tools\InheritdocInliner.exe" "$(OutputPath)Natsnudasoft.NatsnudaLibrary.TestExtensions.xml"'
+      IgnoreStandardErrorWarningFormat="true"
+      StandardOutputImportance="low" />
   </Target>
 </Project>
