@@ -14,11 +14,11 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(APPVEYOR)' == 'True' And '$(APPVEYOR_PULL_REQUEST_NUMBER)' == ''">
-    <DefineConstants>$(DefineConstants);StrongNameSign</DefineConstants>
     <ReportUnitTests>True</ReportUnitTests>
     <StrongNameSign>True</StrongNameSign>
   </PropertyGroup>
   <PropertyGroup Condition="'$(StrongNameSign)' == 'True'">
+    <DefineConstants>$(DefineConstants);StrongNameSign</DefineConstants>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(SolutionDir)Natsnudasoft.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
